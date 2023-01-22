@@ -131,6 +131,12 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/ubuntu/ros_ws/build/gtest/cmake_install.cmake")
+  include("/home/ubuntu/ros_ws/build/prius_msgs/cmake_install.cmake")
+  include("/home/ubuntu/ros_ws/build/lane_msgs/cmake_install.cmake")
+  include("/home/ubuntu/ros_ws/build/lane_controller/cmake_install.cmake")
+  include("/home/ubuntu/ros_ws/build/lane_detector/cmake_install.cmake")
+  include("/home/ubuntu/ros_ws/build/car_demo/cmake_install.cmake")
+  include("/home/ubuntu/ros_ws/build/prius_description/cmake_install.cmake")
 
 endif()
 
