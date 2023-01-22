@@ -137,6 +137,7 @@ class camera_checking:
             self.lane_publisher.publish(command)
             #cv2.imwrite(f"/home/apalese/image_frames/frame{self.seq}.jpg", frame)
             
+            
           
         self.seq+=1
 

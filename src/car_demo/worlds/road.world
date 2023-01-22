@@ -2,10 +2,10 @@
 <sdf version="1.5">
   <world name="default">
     <material name="concrete">
-        <script>
+        <include>
           <uri>file://media/materials/scripts/gazebo.material</uri>
           <name>Gazebo/Primary</name>
-        </script>
+        </include>
     </material>
     <scene>
       <grid>false</grid>
