@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<sdf version="1.5">
+  <world name="default">
+    <material name="concrete">
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/Primary</name>
+        </script>
+    </material>
+    <scene>
+      <grid>false</grid>
+    </scene>
+    <!-- A global light source -->
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <!-- Invisible ground plane -->
+    <model name="ground">
+      <link name="body">
+        <collision name="geom">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+            </plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode>
+                <mu>100</mu>
+                <mu2>50</mu2>
+              </ode>
+            </friction>
+          </surface>
+        </collision>
+      </link>
+      <static>true</static>
+    </model>
+    <road name="my_road">
+      <width>6</width>
+      <point>0 0 0</point>
+      <point>70.4231152676179 0 0</point>
+      <point>184.60922910152644 3.923388567313467 0</point>
+      <point>347.1491649896372 8.777993204368373 0</point>
+      <point>538.0991863642486 13.87341508861268 0</point>
+      <point>778.5860634957644 25.509876885298965 0</point>
+      <point>816.6689025915788 35.38320857817195 0</point>
+      <point>854.7520698348628 56.540523713329826 0</point>
+      <point>888.6037740511154 81.92930187551927 0</point>
+      <point>916.8135275646591 111.5495430647403 0</point>
+      <point>939.3813303754941 145.40124728099292 0</point>
+      <point>970.4120592403922 204.64172965943496 0</point>
+      <point>1001.4423496669853 300.61038768459525 0</point>
+      <point>1030.0901459904098 389.4185562872113 0</point>
+      <point>1087.3857386372586 581.3587916541558 0</point>
+      <point>1148.7318399365688 869.7576753537282 0</point>
+      <point>1203.1039899624852 1245.4198028055152 0</point>
+      <point>1267.3619854476592 1705.1116166609916 0</point>
+      <point>1374.4899632645272 2342.346671631242 0</point>
+      <point>1487.2377598347114 3052.657790023402 0</point>
+      <point>1599.9855564048953 3661.4958915023967 0</point>
+      <point>1746.5576919461344 4304.158331952446 0</point>
+      <material name="concrete"/>      
+    </road>
+  </world>
+</sdf>

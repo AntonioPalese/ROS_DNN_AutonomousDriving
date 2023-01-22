@@ -1,0 +1,2 @@
+car_demo:lane_controller:lane_detector:lane_msgs:prius_description:prius_msgs
+-DCATKIN_DEVEL_PREFIX=/home/ubuntu/ros_ws/devel -DCMAKE_INSTALL_PREFIX=/home/ubuntu/ros_ws/install -G Unix Makefiles
