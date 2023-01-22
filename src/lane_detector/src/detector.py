@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import sys, os
-sys.path.append(os.path.dirname("/home/apalese/ri_wiki_ws/src/lane_detector/models"))
-sys.path.append(os.path.dirname("/home/apalese/ri_wiki_ws/src/lane_detector/utils"))
+sys.path.append(os.path.dirname("/home/ubuntu/ros_ws/src/lane_detector/models"))
+sys.path.append(os.path.dirname("/home/ubuntu/ros_ws/src/lane_detector/utils"))
 
 import rospy
 from sensor_msgs.msg import Image
@@ -20,11 +20,11 @@ class camera_checking:
     def __init__(self):
         sub_topic_name = "/prius/front_camera/image_raw"
         pub_topic_name = "/prius/front_camera/detected_lines"
-        self.path = "/home/apalese/image_frames"  
+        self.path = "/home/ubuntu/image_frames"  
         self.seq = 1   
-        self.cfg = get_cfg("src/lane_detector/configurations/configuration.yaml")
-        self.model = parsingNet(self.cfg)
-        self.model.load_state_dict(torch.load("/home/apalese/ri_wiki_ws/src/lane_detector/state_dicts/ep333_best.pth", map_location='cpu')['model'])  
+        self.cfg = get_cfg("/home/ubuntu/ros_ws/src/lane_detector/configurations/configuration.yaml")
+        self.model = parsingNet(self.cfg).cuda/(self.cfg.mode.device)
+        self.model.load_state_dict(torch.load("/home/ubuntu/ros_ws/src/lane_detector/state_dicts/ep333_best.pth", map_location='cpu')['model'])  
         self.model.eval()
         
 
@@ -108,6 +108,7 @@ class camera_checking:
         
         seqence = seqence[1:]
         batch = torch.unsqueeze(seqence, dim=0)
+        batch = batch.cuda(0)
         
 
 
