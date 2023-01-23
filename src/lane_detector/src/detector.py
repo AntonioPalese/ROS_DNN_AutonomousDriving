@@ -98,20 +98,10 @@ class camera_checking:
             t.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         ])
 
-        seqence = torch.zeros(size=(1, 3, 288, 800))
-
-        for img in queue:
-            img = img_transforms(img)            
-            img = torch.unsqueeze(img, dim=0)
-            
-            seqence = torch.cat(tensors=(seqence, img), dim=0)
+        seqence = torch.stack([img_transforms(img) for img in queue], dim=0).cuda(0)
         
-        seqence = seqence[1:]
-        batch = torch.unsqueeze(seqence, dim=0)
-        batch = batch.cuda(0)
+        batch = torch.unsqueeze(seqence, dim=0)   
         
-
-
         return batch              
 
 
