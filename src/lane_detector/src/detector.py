@@ -9,7 +9,7 @@ import cv2
 from cv_bridge import CvBridge
 import os
 from models.network import parsingNet
-from utils.utilities import get_cfg
+from utils.utilities import get_cfg, timeit
 from geometry_msgs.msg._Point import Point
 import torchvision.transforms as t
 import torch
@@ -37,7 +37,7 @@ class camera_checking:
         self.lane_publisher = rospy.Publisher(pub_topic_name, Lanes, queue_size=1)
         self.bridge = CvBridge()
 
-
+    @timeit
     def generate_lines(self,out, shape, griding_num, localization_type='abs', flip_updown=False):
         import numpy as np
         from scipy import special
@@ -75,7 +75,7 @@ class camera_checking:
 
             return lines
                     
-                
+    @timeit
     def _detect(self, batch):
         with torch.no_grad():
             out = self.model(batch)
@@ -86,7 +86,7 @@ class camera_checking:
 
         return lines
  
-
+    @timeit
     def _load(self, queue):
 
         img_transforms = t.Compose([
@@ -139,4 +139,5 @@ if __name__ == "__main__":
 
     rospy.init_node(node_name)
     camera_checking()
+    rospy.Rate(100)
     rospy.spin()
