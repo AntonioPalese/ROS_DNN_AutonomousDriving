@@ -62,22 +62,13 @@ class parsingNet(torch.nn.Module):
     
         self.initialize_weights(self.cls)
 
-    def forward(self, x):               
+    def forward(self, x): 
 
-        unbinded = torch.unbind(x, dim=1)
+        unbatched = torch.squeeze(x)
+        _, _, unbatched = self.model(unbatched)
+        batched = torch.unsqueeze(unbatched, dim=0)
 
-        outs = []
-        lasts_of_the_sequence = None
-        for x in unbinded:
-            x2, x3, fea = self.model(x)
-            outs.append(fea)
-
-        stacked_sequence = torch.stack(outs, dim=1)
- 
-        #print('shape after resnet : ', stacked_sequence.shape) #torch.Size([24, 3, 512, 9, 25])
-
-
-        temporal_out, _ = self.lstm(stacked_sequence, None) #the initial state of the cells needs to be None
+        temporal_out, _ = self.lstm(batched, None) #the initial state of the cells needs to be None
 
         test = temporal_out[:, -1, : ,: ,:]
 
