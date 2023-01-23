@@ -14,6 +14,7 @@ from geometry_msgs.msg._Point import Point
 import torchvision.transforms as t
 import torch
 from lane_msgs.msg import Lanes
+import queue
 
 
 class camera_checking:
@@ -31,7 +32,7 @@ class camera_checking:
         if not os.path.exists(self.path):
             os.makedirs(self.path)        
 
-        self.queue = []
+        self.queue = queue.Queue(3)
         self.number_subscriber = rospy.Subscriber(sub_topic_name, Image, callback=self.camera_cb)
         self.lane_publisher = rospy.Publisher(pub_topic_name, Lanes, queue_size=1)
         self.bridge = CvBridge()
@@ -84,10 +85,7 @@ class camera_checking:
         #print(lines)
 
         return lines
-            
-           
-
-        
+ 
 
     def _load(self, queue):
 
@@ -98,10 +96,10 @@ class camera_checking:
             t.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         ])
 
-        seqence = torch.stack([img_transforms(img) for img in queue], dim=0).cuda(0)
+        seqence = torch.stack([img_transforms(img) for img in list(queue.queue)], dim=0).cuda(0)
         
         batch = torch.unsqueeze(seqence, dim=0)   
-        
+
         return batch              
 
 
@@ -110,16 +108,17 @@ class camera_checking:
         frame = self.bridge.imgmsg_to_cv2(data) 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)     
 
-        self.queue.append(frame)
+        self.queue.put(frame)
 
         
        
-        if (len(self.queue)) == 3:
+        if self.queue.full():
             batch = self._load(self.queue)
             lines = self._detect(batch)
             #frame = self.display(frame, lines)
-            del self.queue[0]
+            self.queue.get()
             command = Lanes()
+            command.header.stamp = rospy.get_rostime()
             command.line1 = lines[0]
             command.line2 = lines[1]
             command.line3 = lines[2]
