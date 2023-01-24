@@ -12,18 +12,21 @@
 ;;//! \htmlinclude Lanes.msg.html
 (if (not (find-package "GEOMETRY_MSGS"))
   (ros::roseus-add-msgs "geometry_msgs"))
+(if (not (find-package "SENSOR_MSGS"))
+  (ros::roseus-add-msgs "sensor_msgs"))
 (if (not (find-package "STD_MSGS"))
   (ros::roseus-add-msgs "std_msgs"))
 
 
 (defclass lane_msgs::Lanes
   :super ros::object
-  :slots (_header _line1 _line2 _line3 _line4 ))
+  :slots (_header _sensor_img _line1 _line2 _line3 _line4 ))
 
 (defmethod lane_msgs::Lanes
   (:init
    (&key
     ((:header __header) (instance std_msgs::Header :init))
+    ((:sensor_img __sensor_img) (instance sensor_msgs::Image :init))
     ((:line1 __line1) ())
     ((:line2 __line2) ())
     ((:line3 __line3) ())
@@ -31,6 +34,7 @@
     )
    (send-super :init)
    (setq _header __header)
+   (setq _sensor_img __sensor_img)
    (setq _line1 __line1)
    (setq _line2 __line2)
    (setq _line3 __line3)
@@ -43,6 +47,13 @@
      (progn
        (if __header (setq _header (car __header)))
        _header)))
+  (:sensor_img
+   (&rest __sensor_img)
+   (if (keywordp (car __sensor_img))
+       (send* _sensor_img __sensor_img)
+     (progn
+       (if __sensor_img (setq _sensor_img (car __sensor_img)))
+       _sensor_img)))
   (:line1
    (&rest __line1)
    (if (keywordp (car __line1))
@@ -76,6 +87,8 @@
    (+
     ;; std_msgs/Header _header
     (send _header :serialization-length)
+    ;; sensor_msgs/Image _sensor_img
+    (send _sensor_img :serialization-length)
     ;; geometry_msgs/Point[] _line1
     (apply #'+ (send-all _line1 :serialization-length)) 4
     ;; geometry_msgs/Point[] _line2
@@ -91,6 +104,8 @@
               (make-string-output-stream (send self :serialization-length)))))
      ;; std_msgs/Header _header
        (send _header :serialize s)
+     ;; sensor_msgs/Image _sensor_img
+       (send _sensor_img :serialize s)
      ;; geometry_msgs/Point[] _line1
      (write-long (length _line1) s)
      (dolist (elem _line1)
@@ -117,6 +132,8 @@
    (buf &optional (ptr- 0))
    ;; std_msgs/Header _header
      (send _header :deserialize buf ptr-) (incf ptr- (send _header :serialization-length))
+   ;; sensor_msgs/Image _sensor_img
+     (send _sensor_img :deserialize buf ptr-) (incf ptr- (send _sensor_img :serialization-length))
    ;; geometry_msgs/Point[] _line1
    (let (n)
      (setq n (sys::peek buf ptr- :integer)) (incf ptr- 4)
@@ -149,10 +166,12 @@
    self)
   )
 
-(setf (get lane_msgs::Lanes :md5sum-) "21c72467fc59cc31a2ee5a3e3053f358")
+(setf (get lane_msgs::Lanes :md5sum-) "80d3f0a517344ee914e98962a53a5845")
 (setf (get lane_msgs::Lanes :datatype-) "lane_msgs/Lanes")
 (setf (get lane_msgs::Lanes :definition-)
       "Header header
+
+sensor_msgs/Image sensor_img
 
 geometry_msgs/Point[] line1
 geometry_msgs/Point[] line2
@@ -177,6 +196,36 @@ time stamp
 string frame_id
 
 ================================================================================
+MSG: sensor_msgs/Image
+# This message contains an uncompressed image
+# (0, 0) is at top-left corner of image
+#
+
+Header header        # Header timestamp should be acquisition time of image
+                     # Header frame_id should be optical frame of camera
+                     # origin of frame should be optical center of camera
+                     # +x should point to the right in the image
+                     # +y should point down in the image
+                     # +z should point into to plane of the image
+                     # If the frame_id here and the frame_id of the CameraInfo
+                     # message associated with the image conflict
+                     # the behavior is undefined
+
+uint32 height         # image height, that is, number of rows
+uint32 width          # image width, that is, number of columns
+
+# The legal values for encoding are in file src/image_encodings.cpp
+# If you want to standardize a new string format, join
+# ros-users@lists.sourceforge.net and send an email proposing a new encoding.
+
+string encoding       # Encoding of pixels -- channel meaning, ordering, size
+                      # taken from the list of strings in include/sensor_msgs/image_encodings.h
+
+uint8 is_bigendian    # is this data bigendian?
+uint32 step           # Full row length in bytes
+uint8[] data          # actual matrix data, size is (step * rows)
+
+================================================================================
 MSG: geometry_msgs/Point
 # This contains the position of a point in free space
 float64 x
@@ -187,6 +236,6 @@ float64 z
 
 
 
-(provide :lane_msgs/Lanes "21c72467fc59cc31a2ee5a3e3053f358")
+(provide :lane_msgs/Lanes "80d3f0a517344ee914e98962a53a5845")
 
 

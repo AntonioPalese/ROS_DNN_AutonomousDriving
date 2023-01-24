@@ -2,7 +2,7 @@
 
 message(STATUS "lane_msgs: 1 messages, 0 services")
 
-set(MSG_I_FLAGS "-Ilane_msgs:/home/ubuntu/ros_ws/src/lane_msgs/msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Ilane_msgs:/home/ubuntu/ros_ws/src/lane_msgs/msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg;-Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -19,7 +19,7 @@ add_custom_target(lane_msgs_generate_messages ALL)
 
 get_filename_component(_filename "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg" NAME_WE)
 add_custom_target(_lane_msgs_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "lane_msgs" "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg" "std_msgs/Header:geometry_msgs/Point"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "lane_msgs" "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg" "geometry_msgs/Point:std_msgs/Header:sensor_msgs/Image"
 )
 
 #
@@ -31,7 +31,7 @@ add_custom_target(_lane_msgs_generate_messages_check_deps_${_filename}
 _generate_msg_cpp(lane_msgs
   "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/lane_msgs
 )
 
@@ -64,7 +64,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS lane_msgs_generate_messages_cpp)
 _generate_msg_eus(lane_msgs
   "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/lane_msgs
 )
 
@@ -97,7 +97,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS lane_msgs_generate_messages_eus)
 _generate_msg_lisp(lane_msgs
   "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/lane_msgs
 )
 
@@ -130,7 +130,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS lane_msgs_generate_messages_lisp)
 _generate_msg_nodejs(lane_msgs
   "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/lane_msgs
 )
 
@@ -163,7 +163,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS lane_msgs_generate_messages_nodejs)
 _generate_msg_py(lane_msgs
   "/home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/sensor_msgs/cmake/../msg/Image.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/lane_msgs
 )
 
@@ -203,6 +203,9 @@ endif()
 if(TARGET geometry_msgs_generate_messages_cpp)
   add_dependencies(lane_msgs_generate_messages_cpp geometry_msgs_generate_messages_cpp)
 endif()
+if(TARGET sensor_msgs_generate_messages_cpp)
+  add_dependencies(lane_msgs_generate_messages_cpp sensor_msgs_generate_messages_cpp)
+endif()
 
 if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/lane_msgs)
   # install generated code
@@ -213,6 +216,9 @@ if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/la
 endif()
 if(TARGET geometry_msgs_generate_messages_eus)
   add_dependencies(lane_msgs_generate_messages_eus geometry_msgs_generate_messages_eus)
+endif()
+if(TARGET sensor_msgs_generate_messages_eus)
+  add_dependencies(lane_msgs_generate_messages_eus sensor_msgs_generate_messages_eus)
 endif()
 
 if(genlisp_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/lane_msgs)
@@ -225,6 +231,9 @@ endif()
 if(TARGET geometry_msgs_generate_messages_lisp)
   add_dependencies(lane_msgs_generate_messages_lisp geometry_msgs_generate_messages_lisp)
 endif()
+if(TARGET sensor_msgs_generate_messages_lisp)
+  add_dependencies(lane_msgs_generate_messages_lisp sensor_msgs_generate_messages_lisp)
+endif()
 
 if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/lane_msgs)
   # install generated code
@@ -235,6 +244,9 @@ if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_D
 endif()
 if(TARGET geometry_msgs_generate_messages_nodejs)
   add_dependencies(lane_msgs_generate_messages_nodejs geometry_msgs_generate_messages_nodejs)
+endif()
+if(TARGET sensor_msgs_generate_messages_nodejs)
+  add_dependencies(lane_msgs_generate_messages_nodejs sensor_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/lane_msgs)
@@ -247,4 +259,7 @@ if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/lane
 endif()
 if(TARGET geometry_msgs_generate_messages_py)
   add_dependencies(lane_msgs_generate_messages_py geometry_msgs_generate_messages_py)
+endif()
+if(TARGET sensor_msgs_generate_messages_py)
+  add_dependencies(lane_msgs_generate_messages_py sensor_msgs_generate_messages_py)
 endif()

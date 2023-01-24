@@ -12,7 +12,7 @@ class Control(genpy.Message):
   _md5sum = "643e03b408b8368cf4ae109e399336ec"
   _type = "prius_msgs/Control"
   _has_header = True  # flag to mark the presence of a Header object
-  _full_text = """Header header
+  _full_text = """ Header header
 
 # Range 0 to 1, 1 is max throttle
 float64 throttle

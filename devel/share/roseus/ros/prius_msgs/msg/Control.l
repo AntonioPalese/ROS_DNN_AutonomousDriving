@@ -123,7 +123,7 @@
 (setf (get prius_msgs::Control :md5sum-) "643e03b408b8368cf4ae109e399336ec")
 (setf (get prius_msgs::Control :datatype-) "prius_msgs/Control")
 (setf (get prius_msgs::Control :definition-)
-      "Header header
+      " Header header
 
 # Range 0 to 1, 1 is max throttle
 float64 throttle

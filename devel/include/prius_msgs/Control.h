@@ -199,7 +199,7 @@ struct Definition< ::prius_msgs::Control_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "Header header\n"
+    return " Header header\n"
 "\n"
 "# Range 0 to 1, 1 is max throttle\n"
 "float64 throttle\n"

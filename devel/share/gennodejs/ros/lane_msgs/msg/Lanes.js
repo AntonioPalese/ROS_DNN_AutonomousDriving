@@ -11,8 +11,9 @@ const _deserializer = _ros_msg_utils.Deserialize;
 const _arrayDeserializer = _deserializer.Array;
 const _finder = _ros_msg_utils.Find;
 const _getByteLength = _ros_msg_utils.getByteLength;
-let geometry_msgs = _finder('geometry_msgs');
 let std_msgs = _finder('std_msgs');
+let sensor_msgs = _finder('sensor_msgs');
+let geometry_msgs = _finder('geometry_msgs');
 
 //-----------------------------------------------------------
 
@@ -21,6 +22,7 @@ class Lanes {
     if (initObj === null) {
       // initObj === null is a special case for deserialization where we don't initialize fields
       this.header = null;
+      this.sensor_img = null;
       this.line1 = null;
       this.line2 = null;
       this.line3 = null;
@@ -32,6 +34,12 @@ class Lanes {
       }
       else {
         this.header = new std_msgs.msg.Header();
+      }
+      if (initObj.hasOwnProperty('sensor_img')) {
+        this.sensor_img = initObj.sensor_img
+      }
+      else {
+        this.sensor_img = new sensor_msgs.msg.Image();
       }
       if (initObj.hasOwnProperty('line1')) {
         this.line1 = initObj.line1
@@ -64,6 +72,8 @@ class Lanes {
     // Serializes a message object of type Lanes
     // Serialize message field [header]
     bufferOffset = std_msgs.msg.Header.serialize(obj.header, buffer, bufferOffset);
+    // Serialize message field [sensor_img]
+    bufferOffset = sensor_msgs.msg.Image.serialize(obj.sensor_img, buffer, bufferOffset);
     // Serialize message field [line1]
     // Serialize the length for message field [line1]
     bufferOffset = _serializer.uint32(obj.line1.length, buffer, bufferOffset);
@@ -97,6 +107,8 @@ class Lanes {
     let data = new Lanes(null);
     // Deserialize message field [header]
     data.header = std_msgs.msg.Header.deserialize(buffer, bufferOffset);
+    // Deserialize message field [sensor_img]
+    data.sensor_img = sensor_msgs.msg.Image.deserialize(buffer, bufferOffset);
     // Deserialize message field [line1]
     // Deserialize array length for message field [line1]
     len = _deserializer.uint32(buffer, bufferOffset);
@@ -131,6 +143,7 @@ class Lanes {
   static getMessageSize(object) {
     let length = 0;
     length += std_msgs.msg.Header.getMessageSize(object.header);
+    length += sensor_msgs.msg.Image.getMessageSize(object.sensor_img);
     length += 24 * object.line1.length;
     length += 24 * object.line2.length;
     length += 24 * object.line3.length;
@@ -145,13 +158,15 @@ class Lanes {
 
   static md5sum() {
     //Returns md5sum for a message object
-    return '21c72467fc59cc31a2ee5a3e3053f358';
+    return '80d3f0a517344ee914e98962a53a5845';
   }
 
   static messageDefinition() {
     // Returns full string definition for message
     return `
     Header header
+    
+    sensor_msgs/Image sensor_img
     
     geometry_msgs/Point[] line1
     geometry_msgs/Point[] line2
@@ -176,6 +191,36 @@ class Lanes {
     string frame_id
     
     ================================================================================
+    MSG: sensor_msgs/Image
+    # This message contains an uncompressed image
+    # (0, 0) is at top-left corner of image
+    #
+    
+    Header header        # Header timestamp should be acquisition time of image
+                         # Header frame_id should be optical frame of camera
+                         # origin of frame should be optical center of camera
+                         # +x should point to the right in the image
+                         # +y should point down in the image
+                         # +z should point into to plane of the image
+                         # If the frame_id here and the frame_id of the CameraInfo
+                         # message associated with the image conflict
+                         # the behavior is undefined
+    
+    uint32 height         # image height, that is, number of rows
+    uint32 width          # image width, that is, number of columns
+    
+    # The legal values for encoding are in file src/image_encodings.cpp
+    # If you want to standardize a new string format, join
+    # ros-users@lists.sourceforge.net and send an email proposing a new encoding.
+    
+    string encoding       # Encoding of pixels -- channel meaning, ordering, size
+                          # taken from the list of strings in include/sensor_msgs/image_encodings.h
+    
+    uint8 is_bigendian    # is this data bigendian?
+    uint32 step           # Full row length in bytes
+    uint8[] data          # actual matrix data, size is (step * rows)
+    
+    ================================================================================
     MSG: geometry_msgs/Point
     # This contains the position of a point in free space
     float64 x
@@ -196,6 +241,13 @@ class Lanes {
     }
     else {
       resolved.header = new std_msgs.msg.Header()
+    }
+
+    if (msg.sensor_img !== undefined) {
+      resolved.sensor_img = sensor_msgs.msg.Image.Resolve(msg.sensor_img)
+    }
+    else {
+      resolved.sensor_img = new sensor_msgs.msg.Image()
     }
 
     if (msg.line1 !== undefined) {

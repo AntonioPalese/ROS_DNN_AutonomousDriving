@@ -178,7 +178,7 @@ add_dependencies(PriusHybridPlugin ${catkin_EXPORTED_TARGETS})
 #   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 # )
 
-catkin_install_python(PROGRAMS nodes/joystick_translator
+catkin_install_python(PROGRAMS nodes/joystick_translator nodes/keyboard_translator
                       DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 ## Mark executables for installation

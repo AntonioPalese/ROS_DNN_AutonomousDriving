@@ -110,7 +110,7 @@ class Control {
   static messageDefinition() {
     // Returns full string definition for message
     return `
-    Header header
+     Header header
     
     # Range 0 to 1, 1 is max throttle
     float64 throttle

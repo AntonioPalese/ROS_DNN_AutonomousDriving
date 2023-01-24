@@ -34,7 +34,7 @@ class camera_checking:
 
         self.queue = queue.Queue(3)
         self.number_subscriber = rospy.Subscriber(sub_topic_name, Image, callback=self.camera_cb)
-        self.lane_publisher = rospy.Publisher(pub_topic_name, Lanes, queue_size=1)
+        self.lane_publisher = rospy.Publisher(pub_topic_name, Lanes, queue_size=10)
         self.bridge = CvBridge()
 
     @timeit
@@ -119,6 +119,7 @@ class camera_checking:
             self.queue.get()
             command = Lanes()
             command.header.stamp = rospy.get_rostime()
+            command.sensor_img = data
             command.line1 = lines[0]
             command.line2 = lines[1]
             command.line3 = lines[2]

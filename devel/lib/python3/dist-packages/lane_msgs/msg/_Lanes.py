@@ -7,13 +7,16 @@ import genpy
 import struct
 
 import geometry_msgs.msg
+import sensor_msgs.msg
 import std_msgs.msg
 
 class Lanes(genpy.Message):
-  _md5sum = "21c72467fc59cc31a2ee5a3e3053f358"
+  _md5sum = "80d3f0a517344ee914e98962a53a5845"
   _type = "lane_msgs/Lanes"
   _has_header = True  # flag to mark the presence of a Header object
   _full_text = """Header header
+
+sensor_msgs/Image sensor_img
 
 geometry_msgs/Point[] line1
 geometry_msgs/Point[] line2
@@ -38,14 +41,44 @@ time stamp
 string frame_id
 
 ================================================================================
+MSG: sensor_msgs/Image
+# This message contains an uncompressed image
+# (0, 0) is at top-left corner of image
+#
+
+Header header        # Header timestamp should be acquisition time of image
+                     # Header frame_id should be optical frame of camera
+                     # origin of frame should be optical center of camera
+                     # +x should point to the right in the image
+                     # +y should point down in the image
+                     # +z should point into to plane of the image
+                     # If the frame_id here and the frame_id of the CameraInfo
+                     # message associated with the image conflict
+                     # the behavior is undefined
+
+uint32 height         # image height, that is, number of rows
+uint32 width          # image width, that is, number of columns
+
+# The legal values for encoding are in file src/image_encodings.cpp
+# If you want to standardize a new string format, join
+# ros-users@lists.sourceforge.net and send an email proposing a new encoding.
+
+string encoding       # Encoding of pixels -- channel meaning, ordering, size
+                      # taken from the list of strings in include/sensor_msgs/image_encodings.h
+
+uint8 is_bigendian    # is this data bigendian?
+uint32 step           # Full row length in bytes
+uint8[] data          # actual matrix data, size is (step * rows)
+
+================================================================================
 MSG: geometry_msgs/Point
 # This contains the position of a point in free space
 float64 x
 float64 y
 float64 z
 """
-  __slots__ = ['header','line1','line2','line3','line4']
-  _slot_types = ['std_msgs/Header','geometry_msgs/Point[]','geometry_msgs/Point[]','geometry_msgs/Point[]','geometry_msgs/Point[]']
+  __slots__ = ['header','sensor_img','line1','line2','line3','line4']
+  _slot_types = ['std_msgs/Header','sensor_msgs/Image','geometry_msgs/Point[]','geometry_msgs/Point[]','geometry_msgs/Point[]','geometry_msgs/Point[]']
 
   def __init__(self, *args, **kwds):
     """
@@ -55,7 +88,7 @@ float64 z
     changes.  You cannot mix in-order arguments and keyword arguments.
 
     The available fields are:
-       header,line1,line2,line3,line4
+       header,sensor_img,line1,line2,line3,line4
 
     :param args: complete set of field values, in .msg order
     :param kwds: use keyword arguments corresponding to message field names
@@ -66,6 +99,8 @@ float64 z
       # message fields cannot be None, assign default values for those that are
       if self.header is None:
         self.header = std_msgs.msg.Header()
+      if self.sensor_img is None:
+        self.sensor_img = sensor_msgs.msg.Image()
       if self.line1 is None:
         self.line1 = []
       if self.line2 is None:
@@ -76,6 +111,7 @@ float64 z
         self.line4 = []
     else:
       self.header = std_msgs.msg.Header()
+      self.sensor_img = sensor_msgs.msg.Image()
       self.line1 = []
       self.line2 = []
       self.line3 = []
@@ -101,6 +137,31 @@ float64 z
         _x = _x.encode('utf-8')
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+      _x = self
+      buff.write(_get_struct_3I().pack(_x.sensor_img.header.seq, _x.sensor_img.header.stamp.secs, _x.sensor_img.header.stamp.nsecs))
+      _x = self.sensor_img.header.frame_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+      _x = self
+      buff.write(_get_struct_2I().pack(_x.sensor_img.height, _x.sensor_img.width))
+      _x = self.sensor_img.encoding
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+      _x = self
+      buff.write(_get_struct_BI().pack(_x.sensor_img.is_bigendian, _x.sensor_img.step))
+      _x = self.sensor_img.data
+      length = len(_x)
+      # - if encoded as a list instead, serialize as bytes instead of string
+      if type(_x) in [list, tuple]:
+        buff.write(struct.Struct('<I%sB'%length).pack(length, *_x))
+      else:
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       length = len(self.line1)
       buff.write(_struct_I.pack(length))
       for val1 in self.line1:
@@ -134,6 +195,8 @@ float64 z
     try:
       if self.header is None:
         self.header = std_msgs.msg.Header()
+      if self.sensor_img is None:
+        self.sensor_img = sensor_msgs.msg.Image()
       if self.line1 is None:
         self.line1 = None
       if self.line2 is None:
@@ -156,6 +219,42 @@ float64 z
         self.header.frame_id = str[start:end].decode('utf-8', 'rosmsg')
       else:
         self.header.frame_id = str[start:end]
+      _x = self
+      start = end
+      end += 12
+      (_x.sensor_img.header.seq, _x.sensor_img.header.stamp.secs, _x.sensor_img.header.stamp.nsecs,) = _get_struct_3I().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.sensor_img.header.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+      else:
+        self.sensor_img.header.frame_id = str[start:end]
+      _x = self
+      start = end
+      end += 8
+      (_x.sensor_img.height, _x.sensor_img.width,) = _get_struct_2I().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.sensor_img.encoding = str[start:end].decode('utf-8', 'rosmsg')
+      else:
+        self.sensor_img.encoding = str[start:end]
+      _x = self
+      start = end
+      end += 5
+      (_x.sensor_img.is_bigendian, _x.sensor_img.step,) = _get_struct_BI().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      self.sensor_img.data = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -220,6 +319,31 @@ float64 z
         _x = _x.encode('utf-8')
         length = len(_x)
       buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+      _x = self
+      buff.write(_get_struct_3I().pack(_x.sensor_img.header.seq, _x.sensor_img.header.stamp.secs, _x.sensor_img.header.stamp.nsecs))
+      _x = self.sensor_img.header.frame_id
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+      _x = self
+      buff.write(_get_struct_2I().pack(_x.sensor_img.height, _x.sensor_img.width))
+      _x = self.sensor_img.encoding
+      length = len(_x)
+      if python3 or type(_x) == unicode:
+        _x = _x.encode('utf-8')
+        length = len(_x)
+      buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
+      _x = self
+      buff.write(_get_struct_BI().pack(_x.sensor_img.is_bigendian, _x.sensor_img.step))
+      _x = self.sensor_img.data
+      length = len(_x)
+      # - if encoded as a list instead, serialize as bytes instead of string
+      if type(_x) in [list, tuple]:
+        buff.write(struct.Struct('<I%sB'%length).pack(length, *_x))
+      else:
+        buff.write(struct.Struct('<I%ss'%length).pack(length, _x))
       length = len(self.line1)
       buff.write(_struct_I.pack(length))
       for val1 in self.line1:
@@ -254,6 +378,8 @@ float64 z
     try:
       if self.header is None:
         self.header = std_msgs.msg.Header()
+      if self.sensor_img is None:
+        self.sensor_img = sensor_msgs.msg.Image()
       if self.line1 is None:
         self.line1 = None
       if self.line2 is None:
@@ -276,6 +402,42 @@ float64 z
         self.header.frame_id = str[start:end].decode('utf-8', 'rosmsg')
       else:
         self.header.frame_id = str[start:end]
+      _x = self
+      start = end
+      end += 12
+      (_x.sensor_img.header.seq, _x.sensor_img.header.stamp.secs, _x.sensor_img.header.stamp.nsecs,) = _get_struct_3I().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.sensor_img.header.frame_id = str[start:end].decode('utf-8', 'rosmsg')
+      else:
+        self.sensor_img.header.frame_id = str[start:end]
+      _x = self
+      start = end
+      end += 8
+      (_x.sensor_img.height, _x.sensor_img.width,) = _get_struct_2I().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      if python3:
+        self.sensor_img.encoding = str[start:end].decode('utf-8', 'rosmsg')
+      else:
+        self.sensor_img.encoding = str[start:end]
+      _x = self
+      start = end
+      end += 5
+      (_x.sensor_img.is_bigendian, _x.sensor_img.step,) = _get_struct_BI().unpack(str[start:end])
+      start = end
+      end += 4
+      (length,) = _struct_I.unpack(str[start:end])
+      start = end
+      end += length
+      self.sensor_img.data = str[start:end]
       start = end
       end += 4
       (length,) = _struct_I.unpack(str[start:end])
@@ -328,6 +490,12 @@ _struct_I = genpy.struct_I
 def _get_struct_I():
     global _struct_I
     return _struct_I
+_struct_2I = None
+def _get_struct_2I():
+    global _struct_2I
+    if _struct_2I is None:
+        _struct_2I = struct.Struct("<2I")
+    return _struct_2I
 _struct_3I = None
 def _get_struct_3I():
     global _struct_3I
@@ -340,3 +508,9 @@ def _get_struct_3d():
     if _struct_3d is None:
         _struct_3d = struct.Struct("<3d")
     return _struct_3d
+_struct_BI = None
+def _get_struct_BI():
+    global _struct_BI
+    if _struct_BI is None:
+        _struct_BI = struct.Struct("<BI")
+    return _struct_BI

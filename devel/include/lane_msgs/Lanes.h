@@ -16,6 +16,7 @@
 #include <ros/message_operations.h>
 
 #include <std_msgs/Header.h>
+#include <sensor_msgs/Image.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Point.h>
@@ -30,6 +31,7 @@ struct Lanes_
 
   Lanes_()
     : header()
+    , sensor_img()
     , line1()
     , line2()
     , line3()
@@ -37,6 +39,7 @@ struct Lanes_
     }
   Lanes_(const ContainerAllocator& _alloc)
     : header(_alloc)
+    , sensor_img(_alloc)
     , line1(_alloc)
     , line2(_alloc)
     , line3(_alloc)
@@ -48,6 +51,9 @@ struct Lanes_
 
    typedef  ::std_msgs::Header_<ContainerAllocator>  _header_type;
   _header_type header;
+
+   typedef  ::sensor_msgs::Image_<ContainerAllocator>  _sensor_img_type;
+  _sensor_img_type sensor_img;
 
    typedef std::vector< ::geometry_msgs::Point_<ContainerAllocator> , typename std::allocator_traits<ContainerAllocator>::template rebind_alloc< ::geometry_msgs::Point_<ContainerAllocator> >> _line1_type;
   _line1_type line1;
@@ -91,6 +97,7 @@ template<typename ContainerAllocator1, typename ContainerAllocator2>
 bool operator==(const ::lane_msgs::Lanes_<ContainerAllocator1> & lhs, const ::lane_msgs::Lanes_<ContainerAllocator2> & rhs)
 {
   return lhs.header == rhs.header &&
+    lhs.sensor_img == rhs.sensor_img &&
     lhs.line1 == rhs.line1 &&
     lhs.line2 == rhs.line2 &&
     lhs.line3 == rhs.line3 &&
@@ -151,12 +158,12 @@ struct MD5Sum< ::lane_msgs::Lanes_<ContainerAllocator> >
 {
   static const char* value()
   {
-    return "21c72467fc59cc31a2ee5a3e3053f358";
+    return "80d3f0a517344ee914e98962a53a5845";
   }
 
   static const char* value(const ::lane_msgs::Lanes_<ContainerAllocator>&) { return value(); }
-  static const uint64_t static_value1 = 0x21c72467fc59cc31ULL;
-  static const uint64_t static_value2 = 0xa2ee5a3e3053f358ULL;
+  static const uint64_t static_value1 = 0x80d3f0a517344ee9ULL;
+  static const uint64_t static_value2 = 0x14e98962a53a5845ULL;
 };
 
 template<class ContainerAllocator>
@@ -176,6 +183,8 @@ struct Definition< ::lane_msgs::Lanes_<ContainerAllocator> >
   static const char* value()
   {
     return "Header header\n"
+"\n"
+"sensor_msgs/Image sensor_img\n"
 "\n"
 "geometry_msgs/Point[] line1\n"
 "geometry_msgs/Point[] line2\n"
@@ -198,6 +207,36 @@ struct Definition< ::lane_msgs::Lanes_<ContainerAllocator> >
 "time stamp\n"
 "#Frame this data is associated with\n"
 "string frame_id\n"
+"\n"
+"================================================================================\n"
+"MSG: sensor_msgs/Image\n"
+"# This message contains an uncompressed image\n"
+"# (0, 0) is at top-left corner of image\n"
+"#\n"
+"\n"
+"Header header        # Header timestamp should be acquisition time of image\n"
+"                     # Header frame_id should be optical frame of camera\n"
+"                     # origin of frame should be optical center of camera\n"
+"                     # +x should point to the right in the image\n"
+"                     # +y should point down in the image\n"
+"                     # +z should point into to plane of the image\n"
+"                     # If the frame_id here and the frame_id of the CameraInfo\n"
+"                     # message associated with the image conflict\n"
+"                     # the behavior is undefined\n"
+"\n"
+"uint32 height         # image height, that is, number of rows\n"
+"uint32 width          # image width, that is, number of columns\n"
+"\n"
+"# The legal values for encoding are in file src/image_encodings.cpp\n"
+"# If you want to standardize a new string format, join\n"
+"# ros-users@lists.sourceforge.net and send an email proposing a new encoding.\n"
+"\n"
+"string encoding       # Encoding of pixels -- channel meaning, ordering, size\n"
+"                      # taken from the list of strings in include/sensor_msgs/image_encodings.h\n"
+"\n"
+"uint8 is_bigendian    # is this data bigendian?\n"
+"uint32 step           # Full row length in bytes\n"
+"uint8[] data          # actual matrix data, size is (step * rows)\n"
 "\n"
 "================================================================================\n"
 "MSG: geometry_msgs/Point\n"
@@ -224,6 +263,7 @@ namespace serialization
     template<typename Stream, typename T> inline static void allInOne(Stream& stream, T m)
     {
       stream.next(m.header);
+      stream.next(m.sensor_img);
       stream.next(m.line1);
       stream.next(m.line2);
       stream.next(m.line3);
@@ -249,6 +289,9 @@ struct Printer< ::lane_msgs::Lanes_<ContainerAllocator> >
     s << indent << "header: ";
     s << std::endl;
     Printer< ::std_msgs::Header_<ContainerAllocator> >::stream(s, indent + "  ", v.header);
+    s << indent << "sensor_img: ";
+    s << std::endl;
+    Printer< ::sensor_msgs::Image_<ContainerAllocator> >::stream(s, indent + "  ", v.sensor_img);
     s << indent << "line1[]" << std::endl;
     for (size_t i = 0; i < v.line1.size(); ++i)
     {

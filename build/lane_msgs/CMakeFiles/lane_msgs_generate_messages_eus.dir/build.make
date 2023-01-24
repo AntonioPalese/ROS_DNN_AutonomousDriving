@@ -59,14 +59,15 @@ lane_msgs/CMakeFiles/lane_msgs_generate_messages_eus: /home/ubuntu/ros_ws/devel/
 
 /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg/Lanes.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg/Lanes.l: /home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg
-/home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg/Lanes.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg/Lanes.l: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg/Lanes.l: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg/Lanes.l: /opt/ros/noetic/share/sensor_msgs/msg/Image.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/ros_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating EusLisp code from lane_msgs/Lanes.msg"
-	cd /home/ubuntu/ros_ws/build/lane_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg -Ilane_msgs:/home/ubuntu/ros_ws/src/lane_msgs/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p lane_msgs -o /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg
+	cd /home/ubuntu/ros_ws/build/lane_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py /home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg -Ilane_msgs:/home/ubuntu/ros_ws/src/lane_msgs/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p lane_msgs -o /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg
 
 /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/manifest.l: /opt/ros/noetic/lib/geneus/gen_eus.py
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/ros_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating EusLisp manifest code for lane_msgs"
-	cd /home/ubuntu/ros_ws/build/lane_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs lane_msgs geometry_msgs
+	cd /home/ubuntu/ros_ws/build/lane_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/geneus/cmake/../../../lib/geneus/gen_eus.py -m -o /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs lane_msgs geometry_msgs sensor_msgs
 
 lane_msgs_generate_messages_eus: lane_msgs/CMakeFiles/lane_msgs_generate_messages_eus
 lane_msgs_generate_messages_eus: /home/ubuntu/ros_ws/devel/share/roseus/ros/lane_msgs/msg/Lanes.l

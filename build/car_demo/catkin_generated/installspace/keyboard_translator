@@ -1,0 +1,215 @@
+#!/usr/bin/env python3
+
+# Copyright (c) 2011, Willow Garage, Inc.
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+#    * Redistributions of source code must retain the above copyright
+#      notice, this list of conditions and the following disclaimer.
+#    * Redistributions in binary form must reproduce the above copyright
+#      notice, this list of conditions and the following disclaimer in the
+#      documentation and/or other materials provided with the distribution.
+#    * Neither the name of the Willow Garage, Inc. nor the names of its
+#      contributors may be used to endorse or promote products derived from
+#       this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+
+import rospy
+from geometry_msgs.msg import Twist
+import sys, select, os
+from prius_msgs.msg import Control
+if os.name == 'nt':
+  import msvcrt, time
+else:
+  import tty, termios
+
+MAX_LIN_VEL = 1
+MIN_LIN_VEL = 0
+
+MAX_BRAKE = 1
+MIN_BRAKE = 0
+
+MAX_STEER = 1
+MIN_STEER = -1
+
+LIN_VEL_STEP_SIZE = 0.01
+STEERING_STEP_SIZE = 0.01
+BRAKE_STEP_SIZE = 0.01
+
+msg = """
+Control Your TurtleBot3!
+---------------------------
+Moving around:
+        w
+   a    s    d
+        x
+
+w/x : increase/decrease linear velocity (Burger : ~ 0.22, Waffle and Waffle Pi : ~ 0.26)
+a/d : increase/decrease angular velocity (Burger : ~ 2.84, Waffle and Waffle Pi : ~ 1.82)
+
+space key, s : force stop
+
+CTRL-C to quit
+"""
+
+e = """
+Communications Failed
+"""
+
+def getKey():
+    if os.name == 'nt':
+        timeout = 0.1
+        startTime = time.time()
+        while(1):
+            if msvcrt.kbhit():
+                if sys.version_info[0] >= 3:
+                    return msvcrt.getch().decode()
+                else:
+                    return msvcrt.getch()
+            elif time.time() - startTime > timeout:
+                return ''
+
+    tty.setraw(sys.stdin.fileno())
+    rlist, _, _ = select.select([sys.stdin], [], [], 0.1)
+    if rlist:
+        key = sys.stdin.read(1)
+    else:
+        key = ''
+
+    termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)
+    return key
+
+def vels(target_linear_vel, target_steering_angle):
+    return "currently:\tlinear vel %s\t steering_angle %s " % (target_linear_vel,target_steering_angle)
+
+def makeSimpleProfile(output, input, slop):
+    if input > output:
+        output = min( input, output + slop )
+    elif input < output:
+        output = max( input, output - slop )
+    else:
+        output = input
+
+    return output
+
+def constrain(input, low, high):
+    if input < low:
+      input = low
+    elif input > high:
+      input = high
+    else:
+      input = input
+
+    return input
+
+def checkLinearLimitVelocity(vel):
+    vel = constrain(vel, MIN_LIN_VEL,MAX_LIN_VEL)
+    return vel
+
+def checkSteeringLimit(vel):    
+    vel = constrain(vel, MIN_STEER, MAX_STEER)
+    return vel
+
+def checkBrakeLimit(vel):    
+    vel = constrain(vel, MIN_BRAKE, MAX_BRAKE)
+    return vel
+
+if __name__=="__main__":
+    if os.name != 'nt':
+        settings = termios.tcgetattr(sys.stdin)
+
+    rospy.init_node('keyboard_translator')
+    pub = rospy.Publisher('prius', Control, queue_size=1)
+
+    command = Control()
+
+    status = 0
+    target_linear_vel   = 0.0
+    target_steering_angle  = 0.0
+    target_brake  = 0.0
+    
+
+    control_linear_vel  = 0.0
+    control_steering_angle = 0.0
+    control_brake = 0.0
+
+    try:
+        print(msg)
+        while not rospy.is_shutdown():
+            key = getKey()
+            if key == 'w' :
+                target_linear_vel = checkLinearLimitVelocity(target_linear_vel + LIN_VEL_STEP_SIZE)
+                status = status + 1
+                print(vels(target_linear_vel,target_steering_angle))
+            elif key == 's' :
+                target_brake = 1.0
+                if command.shift_gears == Control.FORWARD:
+                    command.shift_gears = Control.REVERSE
+                elif command.shift_gears == Control.REVERSE:
+                    command.shift_gears = Control.FORWARD
+                print(vels(target_linear_vel,target_steering_angle))
+            elif key == 'q' :
+                command.shift_gears = Control.NEUTRAL
+                print(vels(target_linear_vel,target_steering_angle))
+            elif key == 'a' :
+                target_steering_angle = checkSteeringLimit(target_steering_angle - STEERING_STEP_SIZE)
+                status = status + 1
+                print(vels(target_linear_vel,target_steering_angle))
+            elif key == 'd' :
+                target_steering_angle = checkSteeringLimit(target_steering_angle + STEERING_STEP_SIZE)
+                status = status + 1
+                print(vels(target_linear_vel,target_steering_angle))          
+            elif key == ' ' :
+                control_linear_vel  = 0.0
+                control_brake  = 0.0
+                control_steering_angle = 0.0
+
+                target_steering_angle  = 0.0
+                target_linear_vel = 0.0
+                target_brake = 0.0                
+                print(vels(target_linear_vel, target_steering_angle))
+            else:
+                if (key == '\x03'):
+                    break
+
+            if status == 20 :
+                print(msg)
+                status = 0
+
+
+            control_linear_vel = makeSimpleProfile(control_linear_vel, target_linear_vel, (LIN_VEL_STEP_SIZE/2.0))
+            control_steering_angle = makeSimpleProfile(control_steering_angle, target_steering_angle, (STEERING_STEP_SIZE/2.0))
+            control_brake = makeSimpleProfile(control_brake, target_brake, (BRAKE_STEP_SIZE/2.0))
+
+            command.throttle = control_linear_vel
+            command.brake = control_brake
+            command.steer = control_steering_angle
+
+            pub.publish(command)
+
+    except:
+        print(e)
+
+    finally:
+        command = Control()
+        command.brake = 0
+        command.throttle = 0
+        command.steer = 0
+        command.shift_gears = Control.NO_COMMAND
+        pub.publish(command)
+
+    if os.name != 'nt':
+        termios.tcsetattr(sys.stdin, termios.TCSADRAIN, settings)

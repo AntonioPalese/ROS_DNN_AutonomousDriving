@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import sys, os
-sys.path.append(os.path.dirname("/home/apalese/ri_wiki_ws/src/lane_detector/models"))
-sys.path.append(os.path.dirname("/home/apalese/ri_wiki_ws/src/lane_detector/utils"))
+sys.path.append(os.path.dirname("/home/ubuntu/ros_ws/src/lane_detector/models"))
+sys.path.append(os.path.dirname("/home/ubuntu/ros_ws/src/lane_detector/utils"))
 
 import rospy
 from sensor_msgs.msg import Image
@@ -9,34 +9,35 @@ import cv2
 from cv_bridge import CvBridge
 import os
 from models.network import parsingNet
-from utils.utilities import get_cfg
+from utils.utilities import get_cfg, timeit
 from geometry_msgs.msg._Point import Point
 import torchvision.transforms as t
 import torch
 from lane_msgs.msg import Lanes
+import queue
 
 
 class camera_checking:
     def __init__(self):
         sub_topic_name = "/prius/front_camera/image_raw"
         pub_topic_name = "/prius/front_camera/detected_lines"
-        self.path = "/home/apalese/image_frames"  
+        self.path = "/home/ubuntu/image_frames"  
         self.seq = 1   
-        self.cfg = get_cfg("src/lane_detector/configurations/configuration.yaml")
-        self.model = parsingNet(self.cfg)
-        self.model.load_state_dict(torch.load("/home/apalese/ri_wiki_ws/src/lane_detector/state_dicts/ep333_best.pth", map_location='cpu')['model'])  
+        self.cfg = get_cfg("/home/ubuntu/ros_ws/src/lane_detector/configurations/configuration.yaml")
+        self.model = parsingNet(self.cfg).cuda(self.cfg.model.device)
+        self.model.load_state_dict(torch.load("/home/ubuntu/ros_ws/src/lane_detector/state_dicts/ep333_best.pth", map_location='cpu')['model'])  
         self.model.eval()
         
 
         if not os.path.exists(self.path):
             os.makedirs(self.path)        
 
-        self.queue = []
+        self.queue = queue.Queue(3)
         self.number_subscriber = rospy.Subscriber(sub_topic_name, Image, callback=self.camera_cb)
-        self.lane_publisher = rospy.Publisher(pub_topic_name, Lanes, queue_size=1)
+        self.lane_publisher = rospy.Publisher(pub_topic_name, Lanes, queue_size=10)
         self.bridge = CvBridge()
 
-
+    @timeit
     def generate_lines(self,out, shape, griding_num, localization_type='abs', flip_updown=False):
         import numpy as np
         from scipy import special
@@ -74,7 +75,7 @@ class camera_checking:
 
             return lines
                     
-                
+    @timeit
     def _detect(self, batch):
         with torch.no_grad():
             out = self.model(batch)
@@ -84,11 +85,8 @@ class camera_checking:
         #print(lines)
 
         return lines
-            
-           
-
-        
-
+ 
+    @timeit
     def _load(self, queue):
 
         img_transforms = t.Compose([
@@ -98,18 +96,9 @@ class camera_checking:
             t.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         ])
 
-        seqence = torch.zeros(size=(1, 3, 288, 800))
-
-        for img in queue:
-            img = img_transforms(img)            
-            img = torch.unsqueeze(img, dim=0)
-            
-            seqence = torch.cat(tensors=(seqence, img), dim=0)
+        seqence = torch.stack([img_transforms(img) for img in list(queue.queue)], dim=0).cuda(0)
         
-        seqence = seqence[1:]
-        batch = torch.unsqueeze(seqence, dim=0)
-        
-
+        batch = torch.unsqueeze(seqence, dim=0)   
 
         return batch              
 
@@ -119,22 +108,25 @@ class camera_checking:
         frame = self.bridge.imgmsg_to_cv2(data) 
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)     
 
-        self.queue.append(frame)
+        self.queue.put(frame)
 
         
        
-        if (len(self.queue)) == 3:
+        if self.queue.full():
             batch = self._load(self.queue)
             lines = self._detect(batch)
             #frame = self.display(frame, lines)
-            del self.queue[0]
+            self.queue.get()
             command = Lanes()
+            command.header.stamp = rospy.get_rostime()
+            command.sensor_img = data
             command.line1 = lines[0]
             command.line2 = lines[1]
             command.line3 = lines[2]
             command.line4 = lines[3]
             self.lane_publisher.publish(command)
             #cv2.imwrite(f"/home/apalese/image_frames/frame{self.seq}.jpg", frame)
+            
             
           
         self.seq+=1
@@ -148,4 +140,5 @@ if __name__ == "__main__":
 
     rospy.init_node(node_name)
     camera_checking()
+    rospy.Rate(100)
     rospy.spin()

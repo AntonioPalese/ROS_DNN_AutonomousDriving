@@ -59,10 +59,11 @@ lane_msgs/CMakeFiles/lane_msgs_generate_messages_py: /home/ubuntu/ros_ws/devel/l
 
 /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/_Lanes.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/_Lanes.py: /home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg
-/home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/_Lanes.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
 /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/_Lanes.py: /opt/ros/noetic/share/geometry_msgs/msg/Point.msg
+/home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/_Lanes.py: /opt/ros/noetic/share/std_msgs/msg/Header.msg
+/home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/_Lanes.py: /opt/ros/noetic/share/sensor_msgs/msg/Image.msg
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/ros_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG lane_msgs/Lanes"
-	cd /home/ubuntu/ros_ws/build/lane_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg -Ilane_msgs:/home/ubuntu/ros_ws/src/lane_msgs/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p lane_msgs -o /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg
+	cd /home/ubuntu/ros_ws/build/lane_msgs && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ubuntu/ros_ws/src/lane_msgs/msg/Lanes.msg -Ilane_msgs:/home/ubuntu/ros_ws/src/lane_msgs/msg -Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg -Isensor_msgs:/opt/ros/noetic/share/sensor_msgs/cmake/../msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p lane_msgs -o /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg
 
 /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
 /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/__init__.py: /home/ubuntu/ros_ws/devel/lib/python3/dist-packages/lane_msgs/msg/_Lanes.py
