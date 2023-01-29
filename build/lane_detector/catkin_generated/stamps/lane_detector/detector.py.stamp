@@ -71,7 +71,9 @@ class camera_checking:
                 if np.sum(out_j[:, i] != 0) > 2:
                     for k in range(out_j.shape[0]):                        
                         if out_j[k, i] > 0:                            
-                                lines[-1].append(Point(x=int(out_j[k, i] * col_sample_w * 1640 / 800) - 1, y=int(590 - k * 20) - 1, z=0))
+                            lines[-1].append(Point(x=int(out_j[k, i] * col_sample_w * 1640 / 800) - 1, y=int(590 - k * 20) - 1, z=0))
+                        else:
+                            lines[-1].append(Point(x=0.0, y=0.0, z=0))
 
             return lines
                     
@@ -106,7 +108,7 @@ class camera_checking:
 
     def camera_cb(self, data):
         frame = self.bridge.imgmsg_to_cv2(data) 
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)     
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)    
 
         self.queue.put(frame)
 
@@ -116,6 +118,8 @@ class camera_checking:
             batch = self._load(self.queue)
             lines = self._detect(batch)
             #frame = self.display(frame, lines)
+            self.queue.get()
+            self.queue.get()
             self.queue.get()
             command = Lanes()
             command.header.stamp = rospy.get_rostime()

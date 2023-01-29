@@ -302,10 +302,10 @@ PriusHybridPlugin::PriusHybridPlugin()
   ros::init(argc, &argv, "PriusHybridPlugin");
   this->robot_namespace_ = "";
   this->dataPtr->directionState = PriusHybridPluginPrivate::FORWARD;
-  this->dataPtr->flWheelRadius = 0.3;
-  this->dataPtr->frWheelRadius = 0.3;
-  this->dataPtr->blWheelRadius = 0.3;
-  this->dataPtr->brWheelRadius = 0.3;
+  this->dataPtr->flWheelRadius = 0.0;
+  this->dataPtr->frWheelRadius = 0.0;
+  this->dataPtr->blWheelRadius = 0.0;
+  this->dataPtr->brWheelRadius = 0.0;
 }
 
 

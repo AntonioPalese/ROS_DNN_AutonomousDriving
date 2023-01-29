@@ -1,0 +1,11 @@
+material road/YellowLines
+{
+    receive_shadows off
+    technique
+    {
+        pass
+        {
+            texture road_text.jpg
+        }
+    }
+}

@@ -46,6 +46,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "/home/ubuntu/ros_ws/src/car_demo/package.xml"
   "/home/ubuntu/ros_ws/src/lane_controller/CMakeLists.txt"
   "/home/ubuntu/ros_ws/src/lane_controller/package.xml"
+  "/home/ubuntu/ros_ws/src/lane_controller/src/angle_controller.py"
   "/home/ubuntu/ros_ws/src/lane_controller/src/controller.py"
   "/home/ubuntu/ros_ws/src/lane_detector/CMakeLists.txt"
   "/home/ubuntu/ros_ws/src/lane_detector/package.xml"

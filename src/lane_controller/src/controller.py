@@ -9,16 +9,37 @@ from prius_msgs.msg import Control
 from cv_bridge import CvBridge
 import numpy as np
 import math
+from simple_pid.PID import PID
+import matplotlib.pyplot as plt
+from torch.utils.tensorboard import SummaryWriter
+from gazebo_msgs.msg import LinkStates 
+
+MAX_VELOCITY = 20
 
 class lane_control:
     def __init__(self):
         sub_topic_name = "/prius/front_camera/detected_lines"
         pub_topic_name = "prius"    
+        speed_topic_name = "/gazebo/link_states"
         self.path = "/home/ubuntu/image_frames"  
         self.seq = 1   
-        self.num_val_y = (315, 420, 525)  
+        self.num_val_y = (315, 378, 441)  
+        self.y_weights = [1.0, 1.0, 1.0]
         self.ref_line = ([int(1640/2) for _ in range(int(590/2) + 20, 590, 5)], [y for y in range(int(590/2) + 20, 590, 5)])  
+        self.pid = PID(Kp=0.1, Ki=0.0001, Kd=0.005, setpoint=0, sample_time=0.001, output_limits=(-1, 1))
+        self.avg_speed = 10 # m/s
+        self.brake = 0
+        self.step_brake = 0.1
+        self.time = rospy.get_rostime().to_sec()
+        self.last_angle = 0.0
+        self.last_controller = 0
+        self.last_value = 0
+        self.last_throttle = 0
+        self.last_brake = 0
+        
 
+
+        #self.writer = SummaryWriter(log_dir=f"ros_ws/runs/avg_speed={self.avg_speed}_kp={self.pid.Kp}_ki={self.pid.Ki}_kd={self.pid.Kd}")
 
         if not os.path.exists(self.path):
             os.makedirs(self.path) 
@@ -28,13 +49,21 @@ class lane_control:
         
         self.lane_subscriber = rospy.Subscriber(sub_topic_name, Lanes, callback=self.lane_callback)
         self.lane_publisher = rospy.Publisher(pub_topic_name, Control, queue_size=1)
-        # self.last_published_time = rospy.get_rostime()
-        # self.last_published = None
-        # self.timer = rospy.Timer(rospy.Duration(1./20.), self.timer_callback)
+        self.speed_subscirber = rospy.Subscriber(speed_topic_name, LinkStates, callback=self.speed_modifier)
 
-    def timer_callback(self, event):
-        if self.last_published and self.last_published_time < rospy.get_rostime() + rospy.Duration(1.0/20.):
-            self.lane_callback(self.last_published)
+    def speed_modifier(self, msg : LinkStates):
+        i = msg.name.index("prius::base_link")
+        speed_x = msg.twist[i].linear.x
+        speed_y = msg.twist[i].linear.y
+
+        self.speed = math.sqrt(speed_x*speed_x + speed_y*speed_y)
+
+        if (self.speed > self.avg_speed):
+            self.brake += self.step_brake
+        else:
+            self.brake -= self.step_brake
+
+        self.brake = max(0, min(self.brake, 1))
 
     def display(self,frame, lines, color=((255,0,0))):
     
@@ -61,7 +90,7 @@ class lane_control:
 
         xs = [point.x for point in line]
         ys = [point.y for point in line]
-        D = [0, 0, 0]
+        D = [0.0, 0.0, 0.0, 0.0, 0.0]
         
         for i,y_ref in enumerate(self.num_val_y):            
 
@@ -81,21 +110,61 @@ class lane_control:
 
         return frame, D
 
+    def undetected_control(self, dir):
+        command = Control()
+        command.throttle = self.last_throttle / 2
+        command.brake = 2*self.last_brake
+        command.steer = 2*dir*self.last_controller
+        return command
+
+
     def control(self,A, B):
         command = Control()
+        
         value = abs(A - B)
-        if value <= 40:
-            command.throttle = 0.01
-            command.brake = 0
-        elif A - B > 0:
-            print("steering left")
-            command.throttle = 0.001
-            command.steer = (0.001 * value)
-        elif A - B < 0:
-            print("steering right")
-            command.throttle = 0.001
-            command.steer = (-0.001 * value)
+        L = 589.0
+        angle = math.asin(value / L)
+        print("angle : ", angle)
+        ang_v = (angle - self.last_angle) / (rospy.get_rostime().to_sec() - self.time)
+        print("ag_vel : ", ang_v)
+        self.time = rospy.get_rostime().to_sec()
+
+        controller = self.pid(angle)
+
+        if abs(ang_v) > 0.25:
+            self.avg_speed -= 1.0
+        else:
+            self.avg_speed += 1.0
+
+        self.avg_speed = max(0, min(self.avg_speed, MAX_VELOCITY))
+
+        command.throttle = self.avg_speed / 100
+        command.brake = self.brake
+
+        self.last_controller = controller
+        self.last_value = value
+        self.last_throttle = command.throttle
+        self.last_brake = command.brake
+        self.last_angle = angle
+
+        # self.writer.add_scalar("value", value, self.seq)
+        # self.writer.add_scalar("controller", controller, self.seq)
+
+        self.seq += 1
+
+        if A - B > 0:          
+            command.steer = -controller 
+        elif A - B < 0:          
+            command.steer = controller 
+
+        print("value : ", value)
+        print("steer : ",command.steer)
+        print("throttle : ",command.throttle)
+        print("brake : ", self.brake)
+        print(f"speed :  {self.speed} m/s")
+        print("-----------")
             
+        
 
         return command
 
@@ -114,35 +183,30 @@ class lane_control:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
         frame = self.display(frame, [line1, line2, line3, line4])
 
-        frame,_ = self.compute_points(line1, frame)
+        #frame,_ = self.compute_points(line1, frame)
         frame,A = self.compute_points(line2, frame)
         frame,B = self.compute_points(line3, frame)
-        frame,_ = self.compute_points(line4, frame)
+        #frame,_ = self.compute_points(line4, frame)
+       
+        
+        
         if A:
-            print("A  :", sum(A) // 3)
+            A = [a*w for a,w in zip(A, self.y_weights)]
+            # print("A  :", A)
         if B:
-            print("B  :", sum(B) // 3)
+            B = [b*w for b,w in zip(B, self.y_weights)]
+            # print("B  :", B)
 
         
         if A and B:
-            command = self.control(sum(A) // 3,sum(B) // 3)
+            command = self.control(sum(A) / len(self.num_val_y),sum(B) / len(self.num_val_y))
             self.lane_publisher.publish(command)
-
-        
-            
-
-
-
-
-                
-        #print(f"sec seq :{msg.header.seq} is {msg.header.stamp.secs}")
-
-
-
-
-
-
-        
+        elif A:
+            command = self.control(sum(A) / len(self.num_val_y), 0)
+            self.lane_publisher.publish(command)
+        elif B:
+            command = self.control(0, sum(B) / len(self.num_val_y))
+            self.lane_publisher.publish(command)
 
         cv2.imshow("out", frame)
         cv2.waitKey(1)
@@ -152,23 +216,6 @@ class lane_control:
         Control Logic
 
         '''
-
-
-
-
-
-
-        # command = Control()
-        # command.header = msg.header
-
-
-    
-        #self.last_published = msg
-        
-
-
-        
-        
         
 
 
