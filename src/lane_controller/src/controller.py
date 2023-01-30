@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from torch.utils.tensorboard import SummaryWriter
 from gazebo_msgs.msg import LinkStates 
 
-MAX_VELOCITY = 20
+MAX_VELOCITY = 18
 
 class lane_control:
     def __init__(self):
@@ -26,8 +26,8 @@ class lane_control:
         self.num_val_y = (315, 378, 441)  
         self.y_weights = [1.0, 1.0, 1.0]
         self.ref_line = ([int(1640/2) for _ in range(int(590/2) + 20, 590, 5)], [y for y in range(int(590/2) + 20, 590, 5)])  
-        self.pid = PID(Kp=0.1, Ki=0.0001, Kd=0.005, setpoint=0, sample_time=0.001, output_limits=(-1, 1))
-        self.avg_speed = 10 # m/s
+        self.pid = PID(Kp=0.5, Ki=0.0001, Kd=0.05, setpoint=0, sample_time=0.001, output_limits=(-1, 1))
+        self.avg_speed = 100 # m/s
         self.brake = 0
         self.step_brake = 0.1
         self.time = rospy.get_rostime().to_sec()
@@ -131,8 +131,8 @@ class lane_control:
 
         controller = self.pid(angle)
 
-        if abs(ang_v) > 0.25:
-            self.avg_speed -= 1.0
+        if abs(ang_v) > 0.30:
+            self.avg_speed -= (self.speed / 12)
         else:
             self.avg_speed += 1.0
 
@@ -210,12 +210,6 @@ class lane_control:
 
         cv2.imshow("out", frame)
         cv2.waitKey(1)
-
-        '''
-        
-        Control Logic
-
-        '''
         
 
 

@@ -9,7 +9,7 @@
 
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find car_demo)/worlds/road.world"/>
+    <arg name="world_name" value="$(find car_demo)/worlds/road_env.world"/>
     <arg name="verbose" value="true"/>
   </include>
 
@@ -21,19 +21,19 @@
     <!-- <remap from="base_pose_ground_truth" to="/prius/base_pose_ground_truth"/> -->
   </node>
   <node pkg="tf2_ros" type="static_transform_publisher" name="very_inaccurate_odom" args="0 0 0 0 0 0 odom base_link"/>
-  <node pkg="car_demo" type="joystick_translator" name="joystick_translator"/>
+  <!-- <node pkg="car_demo" type="joystick_translator" name="joystick_translator"/> -->
 
   <!-- Run two joy nodes publishing to the same topic, just to cover two possible joystick locations -->
-  <node pkg="joy" type="joy_node" name="joy_node0">
+  <!-- <node pkg="joy" type="joy_node" name="joy_node0">
     <param name="dev" value="/dev/bus/usb/001/004"/>
-  </node>
+  </node> -->
   <!-- <node pkg="joy" type="joy_node" name="joy_node1">
     <param name="dev" value="/dev/input/js1"/>
   </node> -->
 
   <!-- <node pkg="lane_detector" type="detector.py" name="detector.py" required="true"/> -->
 
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -x -0.328607 -y -1.960904 -z 0.006902 -model prius"/>
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -x 2.250881 -y 0.597858 -z 0.006901 -roll 0.000000 -pitch 0.000236 -yaw 1.086039 -model prius"/>
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
 </launch>
