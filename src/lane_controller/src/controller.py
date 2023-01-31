@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 from torch.utils.tensorboard import SummaryWriter
 from gazebo_msgs.msg import LinkStates 
 
-MAX_VELOCITY = 18
+MAX_VELOCITY = 20
 
 class lane_control:
     def __init__(self):
@@ -26,10 +26,10 @@ class lane_control:
         self.num_val_y = (315, 378, 441)  
         self.y_weights = [1.0, 1.0, 1.0]
         self.ref_line = ([int(1640/2) for _ in range(int(590/2) + 20, 590, 5)], [y for y in range(int(590/2) + 20, 590, 5)])  
-        self.pid = PID(Kp=0.5, Ki=0.0001, Kd=0.05, setpoint=0, sample_time=0.001, output_limits=(-1, 1))
+        self.pid = PID(Kp=0.4, Ki=0.0001, Kd=0.05, setpoint=0, sample_time=0.001, output_limits=(-1, 1))
         self.avg_speed = 100 # m/s
         self.brake = 0
-        self.step_brake = 0.1
+        self.step_brake = 0.05
         self.time = rospy.get_rostime().to_sec()
         self.last_angle = 0.0
         self.last_controller = 0
@@ -110,12 +110,12 @@ class lane_control:
 
         return frame, D
 
-    def undetected_control(self, dir):
-        command = Control()
-        command.throttle = self.last_throttle / 2
-        command.brake = 2*self.last_brake
-        command.steer = 2*dir*self.last_controller
-        return command
+    # def undetected_control(self, dir):
+    #     command = Control()
+    #     command.throttle = self.last_throttle / 2
+    #     command.brake = 2*self.last_brake
+    #     command.steer = 2*dir*self.last_controller
+    #     return command
 
 
     def control(self,A, B):
@@ -131,8 +131,8 @@ class lane_control:
 
         controller = self.pid(angle)
 
-        if abs(ang_v) > 0.30:
-            self.avg_speed -= (self.speed / 12)
+        if abs(ang_v) > 0.20:
+            self.avg_speed -= (self.speed / 5)
         else:
             self.avg_speed += 1.0
 
