@@ -1,11 +1,23 @@
-material road/YellowLines
-{
+material road/YellowLines {
     receive_shadows off
-    technique
-    {
-        pass
-        {
-            texture road_text.jpg
+    technique {
+        pass{
+            texture_unit{
+                texture road_text.jpg   
+                scale 1 1
+            }
+        }
+    }
+}
+
+material road/WhiteLines {
+    receive_shadows off
+    technique {
+        pass{
+            texture_unit{
+                texture white_line_road.jpg
+                scale 1 1
+            }
         }
     }
 }

@@ -73,50 +73,50 @@
       <static>1</static>
     </model>
     <road name='my_road'>
-      <width>8</width>
-      <point>5 9.35647 0.1</point>
-      <point>10 23.6243 0.1</point>
-      <point>15 48.0856 0.1</point>
-      <point>20 87.5435 0.1</point>
-      <point>25.7168 155.924 0.1</point>
-      <point>25.8557 156.215 0.1</point>
-      <point>24.6381 166.615 0.1</point>
-      <point>21.6915 177.593 0.1</point>
-      <point>16.7721 187.824 0.1</point>
-      <point>11.5791 197.183 0.1</point>
-      <point>4.61471 206.293 0.1</point>
-      <point>-16.4946 223.578 0.1</point>
-      <point>-28.3902 230.737 0.1</point>
-      <point>-64.5918 240.741 0.1</point>
-      <point>-74.781 243.997 0.1</point>
-      <point>-103.788 254.23 0.1</point>
-      <point>-140.886 266.127 0.1</point>
-      <point>-177.117 273.974 0.1</point>
-      <point>-216.931 271.33 0.1</point>
-      <point>-259.889 260.887 0.1</point>
-      <point>-294.889 245.391 0.1</point>
-      <point>-316.117 233.813 0.1</point>
-      <point>-330.831 219.083 0.1</point>
-      <point>-346.659 199.691 0.1</point>
-      <point>-359.43 180.807 0.1</point>
-      <point>-364.794 170.192 0.1</point>
-      <point>-368.011 158.896 0.1</point>
-      <point>-369.005 149.313 0.1</point>
-      <point>-365.853 139.751 0.1</point>
-      <point>-355.924 122.691 0.1</point>
-      <point>-344.673 107.453 0.1</point>
-      <point>-333.719 94.2787 0.1</point>
-      <point>-235.844 1.81527 0.1</point>
-      <point>-123.528 -78.8656 0.1</point>
-      <point>-111 -82.4398 0.1</point>
-      <point>-94.5768 -80.0052 0.1</point>
-      <point>-77.6447 -74.8028 0.1</point>
-      <point>-57.111 -64.4269 0.1</point>
-      <point>-33.4292 -50.1885 0.1</point>
-      <point>-21.0841 -40.3191 0.1</point>
-      <point>-9.51648 -25.7859 0.1</point>
-      <point>-1.66112 -10.1338 0.1</point>
-      <point>5.07837 9.8583 0.1</point>
+      <width>7.30</width>
+      <point>5 9.35647 0.05</point>
+      <point>10 23.6243 0.05</point>
+      <point>15 48.0856 0.05</point>
+      <point>20 87.5435 0.05</point>
+      <point>25.7168 155.924 0.05</point>
+      <point>25.8557 156.215 0.05</point>
+      <point>24.6381 166.615 0.05</point>
+      <point>21.6915 177.593 0.05</point>
+      <point>16.7721 187.824 0.05</point>
+      <point>11.5791 197.183 0.05</point>
+      <point>4.61471 206.293 0.05</point>
+      <point>-16.4946 223.578 0.05</point>
+      <point>-28.3902 230.737 0.05</point>
+      <point>-64.5918 240.741 0.05</point>
+      <point>-74.781 243.997 0.05</point>
+      <point>-103.788 254.23 0.05</point>
+      <point>-140.886 266.127 0.05</point>
+      <point>-177.117 273.974 0.05</point>
+      <point>-216.931 271.33 0.05</point>
+      <point>-259.889 260.887 0.05</point>
+      <point>-294.889 245.391 0.05</point>
+      <point>-316.117 233.813 0.05</point>
+      <point>-330.831 219.083 0.05</point>
+      <point>-346.659 199.691 0.05</point>
+      <point>-359.43 180.807 0.05</point>
+      <point>-364.794 170.192 0.05</point>
+      <point>-368.011 158.896 0.05</point>
+      <point>-367.586 149.438 0.05</point>
+      <point>-365.853 139.751 0.05</point>
+      <point>-360.755 125.215 0.05</point>
+      <point>-355.324 116.987 0.05</point>
+      <point>-333.719 94.2787 0.05</point>
+      <point>-235.844 1.81527 0.05</point>
+      <point>-123.528 -78.8656 0.05</point>
+      <point>-111 -82.4398 0.05</point>
+      <point>-94.5768 -80.0052 0.05</point>
+      <point>-77.6447 -74.8028 0.05</point>
+      <point>-57.111 -64.4269 0.05</point>
+      <point>-33.4292 -50.001885 0.05</point>
+      <point>-21.0841 -40.3191 0.05</point>
+      <point>-9.51648 -25.7859 0.05</point>
+      <point>-1.66112 -10.001338 0.05</point>
+      <point>5.07837 9.8583 0.05</point>
       <material>
         <include>
           <uri>file://media/materials/scripts/gazebo.material</uri>
@@ -1326,49 +1326,63 @@
       </plugin>
       <pose>-0.328607 -1.9609 0.006902 0 -0 0</pose>
     </model>
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <track_visual>
+          <name>prius</name>
+          <static>1</static>
+          <use_model_frame>1</use_model_frame>
+          <xyz>-7 -32 13</xyz>
+          <inherit_yaw>1</inherit_yaw>
+        </track_visual>
+        <pose>-336.982 85.3387 77.3801 -0 0.837545 1.69423</pose>
+        <view_controller>orbit</view_controller>
+        <projection_type>perspective</projection_type>
+      </camera>
+    </gui>
     <state world_name='default'>
-      <sim_time>479 721000000</sim_time>
-      <real_time>1258 267369155</real_time>
-      <wall_time>1675187257 629208256</wall_time>
-      <iterations>479721</iterations>
+      <sim_time>58 478000000</sim_time>
+      <real_time>75 467679859</real_time>
+      <wall_time>1675349471 312233119</wall_time>
+      <iterations>58478</iterations>
       <model name='Construction Cone'>
-        <pose>13.8468 43.4448 -0 0 -1e-06 0</pose>
+        <pose>13.8468 43.4448 -0 -0 -0 -0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>13.8468 43.4448 -0 0 -1e-06 0</pose>
+          <pose>13.8468 43.4448 -0 -0 -0 -0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 0.008512 2.58585 -1.13682 -3.14159</acceleration>
-          <wrench>-0 0 0.008512 0 -0 0</wrench>
+          <acceleration>-1e-06 -1e-06 8.59825 -2.40603 -0.771838 -1e-06</acceleration>
+          <wrench>-1e-06 -1e-06 8.59825 0 -0 0</wrench>
         </link>
       </model>
       <model name='Construction Cone_clone'>
-        <pose>18.8459 79.8518 -0 0 -1e-06 0</pose>
+        <pose>18.8459 79.8518 -3e-06 -3e-06 -1e-06 -0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>18.8459 79.8518 -0 0 -1e-06 0</pose>
+          <pose>18.8459 79.8518 -3e-06 -3e-06 -1e-06 -0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 0.008512 2.58585 -1.13682 -3.14159</acceleration>
-          <wrench>-0 0 0.008512 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='Construction Cone_clone_0'>
-        <pose>22.0308 112.916 -0 0 -1e-06 0</pose>
+        <pose>22.0308 112.916 -3e-06 -3e-06 -1e-06 -0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>22.0308 112.916 -0 0 -1e-06 0</pose>
+          <pose>22.0308 112.916 -3e-06 -3e-06 -1e-06 -0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 0.008512 2.58585 -1.13682 -3.14159</acceleration>
-          <wrench>-0 0 0.008512 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='Construction Cone_clone_1'>
-        <pose>6.66815 14.6175 -0 0 -1e-06 0</pose>
+        <pose>6.66815 14.6175 -0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>6.66815 14.6175 -0 0 -1e-06 0</pose>
+          <pose>6.66815 14.6175 -0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 0 0.008512 2.58585 -1.13682 -3.14159</acceleration>
-          <wrench>-0 0 0.008512 0 -0 0</wrench>
+          <acceleration>-0 -1e-06 8.91358 -2.3231 -0.354661 -1e-06</acceleration>
+          <wrench>-0 -1e-06 8.91358 0 -0 0</wrench>
         </link>
       </model>
       <model name='adding_1_+_2'>
@@ -3630,61 +3644,61 @@
         </link>
       </model>
       <model name='prius'>
-        <pose>22.0095 80.9396 0.006891 -1e-06 0.00024 1.2288</pose>
+        <pose>2.33535 -3.27087 0.006902 -0 0.000237 1.1677</pose>
         <scale>1 1 1</scale>
         <link name='base_link'>
-          <pose>22.0095 80.9396 0.006891 -1e-06 0.00024 1.2288</pose>
-          <velocity>-0.002577 0.004655 -0.00185 0.012177 -0.004319 0.048543</velocity>
-          <acceleration>1.22438 1.55513 0.008903 -0.350371 0.106351 3.13613</acceleration>
-          <wrench>1.22438 1.55513 0.008903 0 -0 0</wrench>
+          <pose>2.33535 -3.27087 0.006902 -0 0.000237 1.1677</pose>
+          <velocity>-0.000583 -0.006327 -0.001886 0.010839 -0.004602 -0.047907</velocity>
+          <acceleration>-0.601726 -1.55238 0.001027 0.159182 -0.038555 -2.69624</acceleration>
+          <wrench>-0.601726 -1.55238 0.001027 0 -0 0</wrench>
         </link>
         <link name='chassis'>
-          <pose>22.4958 82.3056 0.007484 4.8e-05 1e-06 2.7988</pose>
-          <velocity>0.001941 0.00457 -0.015259 0.006367 -0.002271 2e-06</velocity>
-          <acceleration>0.174892 0.003128 -0.05782 -0.438528 0.230721 -0.058421</acceleration>
-          <wrench>240.476 4.30051 -79.5025 0 -0 0</wrench>
+          <pose>2.90415 -1.93711 0.007484 4.5e-05 0 2.7377</pose>
+          <velocity>-0.000559 -0.004203 -0.015324 0.005027 -0.00212 -0.001327</velocity>
+          <acceleration>-0.067387 0.192306 0.011537 0.123028 -0.053503 -0.100566</acceleration>
+          <wrench>-92.6571 264.421 15.8628 0 -0 0</wrench>
         </link>
         <link name='fl_axle'>
-          <pose>22.2473 83.8914 0.307616 4.5e-05 -4.4e-05 2.7987</pose>
-          <velocity>0.001574 0.002112 -0.028671 -0.017323 -0.067155 -0.104719</velocity>
-          <acceleration>1.00304 -0.944259 0.631258 0.646558 0.663824 2.78119</acceleration>
-          <wrench>1.00304 -0.944259 0.631258 0 -0 0</wrench>
+          <pose>2.75299 -0.339128 0.307607 0.001626 3.7e-05 2.73685</pose>
+          <velocity>0.000106 -0.002903 -0.02956 0.079901 0.04815 -1.61641</velocity>
+          <acceleration>-1.6446 5.17025 -0.066722 0.913803 -0.187463 2.4394</acceleration>
+          <wrench>-1.6446 5.17025 -0.066722 0 -0 0</wrench>
         </link>
         <link name='fr_axle'>
-          <pose>23.6921 83.3758 0.307616 4.5e-05 -4e-05 2.7989</pose>
-          <velocity>0.001579 0.002127 -0.02863 -0.017283 -0.067297 0.103336</velocity>
-          <acceleration>0.975868 -1.0239 0.641998 0.460001 1.17182 0.827373</acceleration>
-          <wrench>0.975868 -1.0239 0.641998 0 -0 0</wrench>
+          <pose>4.16356 -0.941989 0.307607 0.001575 9.2e-05 2.73842</pose>
+          <velocity>0.000932 -0.00954 -0.029557 -0.062496 -0.043055 1.51975</velocity>
+          <acceleration>1.53947 -4.5558 -0.04577 -2.92085 0.345312 -2.1431</acceleration>
+          <wrench>1.53947 -4.5558 -0.04577 0 -0 0</wrench>
         </link>
         <link name='front_left_wheel'>
-          <pose>22.2473 83.8914 0.307572 -0.21964 -2.6e-05 2.7987</pose>
-          <velocity>0.001571 0.002147 -0.023754 -0.161508 0.005062 -0.104709</velocity>
-          <acceleration>0.996321 -0.896818 0.396285 -3.11906 0.890932 -0.33901</acceleration>
-          <wrench>10.9595 -9.865 4.35913 0 -0 0</wrench>
+          <pose>2.75299 -0.339128 0.307566 -0.247745 2.7e-05 2.73685</pose>
+          <velocity>5.8e-05 -0.002856 -0.024672 0.1489 9e-05 -1.61636</velocity>
+          <acceleration>-1.69642 5.37758 -0.007288 0.867378 -1.41691 2.51655</acceleration>
+          <wrench>-18.6606 59.1534 -0.080167 0 -0 0</wrench>
         </link>
         <link name='front_right_wheel'>
-          <pose>23.6921 83.3758 0.307572 -0.244618 -2.3e-05 2.7989</pose>
-          <velocity>0.001576 0.002162 -0.023706 -0.16176 0.005078 0.103345</velocity>
-          <acceleration>0.969464 -0.976928 0.412253 -3.09753 0.521344 -2.29303</acceleration>
-          <wrench>10.6641 -10.7462 4.53478 0 -0 0</wrench>
+          <pose>4.16356 -0.941989 0.307565 0.052502 7.1e-05 2.73842</pose>
+          <velocity>0.000946 -0.009679 -0.024656 0.031156 -0.067762 1.51973</velocity>
+          <acceleration>1.614 -4.71806 -0.002598 -1.09915 0.827049 0.932004</acceleration>
+          <wrench>17.754 -51.8986 -0.028576 0 -0 0</wrench>
         </link>
         <link name='rear_left_wheel'>
-          <pose>21.2615 81.2065 0.307551 -0.957157 1e-05 2.7988</pose>
-          <velocity>0.001172 0.002623 -0.024397 -0.00839 0.003768 -1e-06</velocity>
-          <acceleration>0.091629 0.076688 0.144007 -0.227977 0.218632 -0.063429</acceleration>
-          <wrench>1.00792 0.843568 1.58408 0 -0 0</wrench>
+          <pose>1.60511 -2.95878 0.307555 -0.536404 -5e-06 2.7377</pose>
+          <velocity>-0.002906 -0.003717 -0.02388 0.011746 -0.000153 -0.001327</velocity>
+          <acceleration>-0.659678 1.54152 -0.103533 0.525683 0.780479 3.04212</acceleration>
+          <wrench>-7.25646 16.9567 -1.13886 0 -0 0</wrench>
         </link>
         <link name='rear_right_wheel'>
-          <pose>22.7553 80.6735 0.307552 3.01553 1e-05 2.7988</pose>
-          <velocity>0.001172 0.002622 -0.024468 -0.008387 0.003767 0</velocity>
-          <acceleration>0.057699 -0.018638 0.209713 0.087984 0.187494 -0.063311</acceleration>
-          <wrench>0.63469 -0.205019 2.30684 0 -0 0</wrench>
+          <pose>3.0635 -3.58207 0.307555 -0.671741 -1.2e-05 2.7377</pose>
+          <velocity>-0.003782 -0.005232 -0.023871 0.016481 0.000194 -0.001326</velocity>
+          <acceleration>-0.827078 2.26031 -0.134838 -2.4457 -0.034979 -0.096543</acceleration>
+          <wrench>-9.09786 24.8635 -1.48322 0 -0 0</wrench>
         </link>
         <link name='steering_wheel'>
-          <pose>22.3699 83.0172 0.995698 -1.30205 1e-06 2.7988</pose>
-          <velocity>-0.000232 -0.001552 -0.0113 0.006081 -0.002013 -3.7e-05</velocity>
-          <acceleration>0.263887 0.156182 -0.210834 -0.17289 0.34141 -0.133644</acceleration>
-          <wrench>0.263887 0.156182 -0.210834 0 -0 0</wrench>
+          <pose>2.82197 -1.21913 0.995697 -1.30205 -0 2.7377</pose>
+          <velocity>-0.001713 -0.009094 -0.011807 0.005054 -0.002219 -0.001303</velocity>
+          <acceleration>-0.003577 0.133409 0.094931 0.06258 -0.14554 -0.045019</acceleration>
+          <wrench>-0.003577 0.133409 0.094931 0 -0 0</wrench>
         </link>
       </model>
       <model name='school_0'>
@@ -3813,6 +3827,9 @@
       </model>
       <light name='sun'>
         <pose>0 0 10 0 -0 0</pose>
+      </light>
+      <light name='user_point_light_0'>
+        <pose>-366.776 146.137 1 0 -0 0</pose>
       </light>
     </state>
     <gui fullscreen='0'>
@@ -17404,5 +17421,18 @@
       <allow_auto_disable>1</allow_auto_disable>
       <pose>-153.844 -11.009 0 0 -0 0</pose>
     </model>
+    <light name='user_point_light_0' type='point'>
+      <pose>-366.776 146.137 1 0 -0 0</pose>
+      <diffuse>0.5 0.5 0.5 1</diffuse>
+      <specular>0.1 0.1 0.1 1</specular>
+      <attenuation>
+        <range>20</range>
+        <constant>0.5</constant>
+        <linear>0.01</linear>
+        <quadratic>0.001</quadratic>
+      </attenuation>
+      <cast_shadows>0</cast_shadows>
+      <direction>0 0 -1</direction>
+    </light>
   </world>
 </sdf>
