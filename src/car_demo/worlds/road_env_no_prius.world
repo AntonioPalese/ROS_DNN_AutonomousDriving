@@ -139,1193 +139,6 @@
       <elevation>0</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
-    <model name='prius'>
-      <link name='base_link'>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>1</mass>
-          <inertia>
-            <ixx>0.001</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.001</iyy>
-            <iyz>0</iyz>
-            <izz>0.001</izz>
-          </inertia>
-        </inertial>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='base_link_connection' type='revolute'>
-        <pose relative_to='base_link'>1.45 0 0 0 -0 1.57</pose>
-        <parent>base_link</parent>
-        <child>chassis</child>
-        <axis>
-          <limit>
-            <lower>0</lower>
-            <upper>0</upper>
-          </limit>
-          <dynamics>
-            <damping>0</damping>
-            <friction>0</friction>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-          <xyz>0 0 1</xyz>
-        </axis>
-        <physics>
-          <ode>
-            <limit>
-              <cfm>0</cfm>
-              <erp>0.2</erp>
-            </limit>
-          </ode>
-        </physics>
-      </joint>
-      <link name='chassis'>
-        <pose relative_to='base_link_connection'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 -0.002982 0.485295 0 -0 1.5708</pose>
-          <mass>1375</mass>
-          <inertia>
-            <ixx>2595.52</ixx>
-            <ixy>0.000189032</ixy>
-            <ixz>-0.949708</ixz>
-            <iyy>657.155</iyy>
-            <iyz>3.48847e-06</iyz>
-            <izz>2749.81</izz>
-          </inertia>
-        </inertial>
-        <collision name='chassis_collision'>
-          <pose>0 0.05 0.625 0 -0 0</pose>
-          <geometry>
-            <box>
-              <size>1.7526 2.1 0.95</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__front_bumper_collision_1'>
-          <pose>0 -2 0.458488 0 -0 0</pose>
-          <geometry>
-            <box>
-              <size>1.33728 0.48 0.566691</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__hood_collision_2'>
-          <pose>0 -1.90084 0.676305 0.341247 -0 0</pose>
-          <geometry>
-            <box>
-              <size>1.59797 0.493107 0.265468</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__windshield_collision_3'>
-          <pose>0 -0.875105 1.03227 0.335476 -0 0</pose>
-          <geometry>
-            <box>
-              <size>1.16838 1.65425 0.272347</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__top_front_collision_4'>
-          <pose>0 0.161236 1.38604 0.13503 -0 0</pose>
-          <geometry>
-            <box>
-              <size>1.27915 0.625988 0.171868</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__top_rear_collision_5'>
-          <pose>0 0.817696 1.36007 -0.068997 0 0</pose>
-          <geometry>
-            <box>
-              <size>1.28513 0.771189 0.226557</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__rear_window_collision_6'>
-          <pose>0 1.64053 1.17513 -0.262017 0 0</pose>
-          <geometry>
-            <box>
-              <size>1.26785 1.11634 0.244286</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__trunk_collision_7'>
-          <pose>0 1.63706 0.88818 0 -0 0</pose>
-          <geometry>
-            <box>
-              <size>1.78806 1.13899 0.482746</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <collision name='chassis_fixed_joint_lump__back_bumper_collision_8'>
-          <pose>0 2.05445 0.57787 0 -0 0</pose>
-          <geometry>
-            <box>
-              <size>1.78165 0.512093 0.581427</size>
-            </box>
-          </geometry>
-          <max_contacts>10</max_contacts>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <visual name='chassis_visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>0.01 0.01 0.01</scale>
-              <uri>/home/ubuntu/ros_ws/src/prius_description/meshes/hybrid_body.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <sensor name='back_camera_sensor' type='camera'>
-          <update_rate>30</update_rate>
-          <camera name='back_camera'>
-            <horizontal_fov>1.39626</horizontal_fov>
-            <image>
-              <width>800</width>
-              <height>800</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.02</near>
-              <far>300</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <plugin name='back_camera_controller' filename='libgazebo_ros_camera.so'>
-            <alwaysOn>0</alwaysOn>
-            <updateRate>0.0</updateRate>
-            <cameraName>/prius/back_camera</cameraName>
-            <imageTopicName>image_raw</imageTopicName>
-            <cameraInfoTopicName>/prius/back_camera/camera_info</cameraInfoTopicName>
-            <frameName>back_camera_link_optical</frameName>
-            <hackBaseline>0.07</hackBaseline>
-            <distortionK1>0.0</distortionK1>
-            <distortionK2>0.0</distortionK2>
-            <distortionK3>0.0</distortionK3>
-            <distortionT1>0.0</distortionT1>
-            <distortionT2>0.0</distortionT2>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <pose>0 1.45 1.4 0 0.05 1.5707</pose>
-        </sensor>
-        <sensor name='back_left_far_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='back_left_far_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/back_sonar/left_far_range</topicName>
-            <frameName>back_left_far_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>0.7 2.4 0.5 0 -0 1.5707</pose>
-        </sensor>
-        <sensor name='back_left_middle_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='back_left_middle_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/back_sonar/left_middle_range</topicName>
-            <frameName>back_left_middle_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>0.24 2.4 0.5 0 -0 1.5707</pose>
-        </sensor>
-        <sensor name='back_right_far_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='back_right_far_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/back_sonar/right_far_range</topicName>
-            <frameName>back_right_far_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>-0.7 2.4 0.5 0 -0 1.5707</pose>
-        </sensor>
-        <sensor name='back_right_middle_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='back_right_middle_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/back_sonar/right_middle_range</topicName>
-            <frameName>back_right_middle_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>-0.24 2.4 0.5 0 -0 1.5707</pose>
-        </sensor>
-        <sensor name='center_laser_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>512</samples>
-                <resolution>1</resolution>
-                <min_angle>-3.14</min_angle>
-                <max_angle>3.14</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>16</samples>
-                <min_angle>-0.1</min_angle>
-                <max_angle>-0.35</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>30</max>
-              <resolution>0.01</resolution>
-            </range>
-          </ray>
-          <plugin name='center_laser' filename='libgazebo_ros_block_laser.so'>
-            <topicName>/prius/center_laser/scan</topicName>
-            <frameName>center_laser_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>0</visualize>
-          <pose>0 0.4 1.8 0 0 -1.5707</pose>
-        </sensor>
-        <sensor name='front_camera_sensor' type='camera'>
-          <update_rate>30</update_rate>
-          <visualize>1</visualize>
-          <camera name='front_camera'>
-            <horizontal_fov>2</horizontal_fov>
-            <image>
-              <width>1640</width>
-              <height>590</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.02</near>
-              <far>300</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0</mean>
-              <stddev>0</stddev>
-            </noise>
-          </camera>
-          <plugin name='front_camera_controller' filename='libgazebo_ros_camera.so'>
-            <alwaysOn>0</alwaysOn>
-            <updateRate>0.0</updateRate>
-            <cameraName>/prius/front_camera</cameraName>
-            <imageTopicName>image_raw</imageTopicName>
-            <cameraInfoTopicName>/prius/front_camera/camera_info</cameraInfoTopicName>
-            <frameName>front_camera_link_optical</frameName>
-            <hackBaseline>0.07</hackBaseline>
-            <distortionK1>0.0</distortionK1>
-            <distortionK2>0.0</distortionK2>
-            <distortionK3>0.0</distortionK3>
-            <distortionT1>0.0</distortionT1>
-            <distortionT2>0.0</distortionT2>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <pose>0 -0.4 1.4 0 0.05 -1.5707</pose>
-        </sensor>
-        <sensor name='front_left_far_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='front_left_far_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/front_sonar/left_far_range</topicName>
-            <frameName>front_left_far_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>0.7 -2.1 0.5 0 0 -1.5707</pose>
-        </sensor>
-        <sensor name='front_left_laser_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>640</samples>
-                <resolution>1</resolution>
-                <min_angle>-2.26889</min_angle>
-                <max_angle>2.2689</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>30</max>
-              <resolution>0.01</resolution>
-            </range>
-          </ray>
-          <plugin name='front_left_laser' filename='libgazebo_ros_laser.so'>
-            <topicName>/prius/front_left_laser/scan</topicName>
-            <frameName>front_left_laser_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>0</visualize>
-          <pose>1 -2.3 0.5 0 0.05 0</pose>
-        </sensor>
-        <sensor name='front_left_middle_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='front_left_middle_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/front_sonar/left_middle_range</topicName>
-            <frameName>front_left_middle_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>0.24 -2.3 0.5 0 0 -1.5707</pose>
-        </sensor>
-        <sensor name='front_right_far_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='front_right_far_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/front_sonar/right_far_range</topicName>
-            <frameName>front_right_far_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>-0.7 -2.1 0.5 0 0 -1.5707</pose>
-        </sensor>
-        <sensor name='front_right_laser_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>640</samples>
-                <resolution>1</resolution>
-                <min_angle>-2.26889</min_angle>
-                <max_angle>2.2689</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>30</max>
-              <resolution>0.01</resolution>
-            </range>
-          </ray>
-          <plugin name='front_right_laser' filename='libgazebo_ros_laser.so'>
-            <topicName>/prius/front_right_laser/scan</topicName>
-            <frameName>front_right_laser_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>1</always_on>
-          <update_rate>30</update_rate>
-          <visualize>0</visualize>
-          <pose>-1 -2.3 0.5 -0 0.05 3.14</pose>
-        </sensor>
-        <sensor name='front_right_middle_sonar_sensor' type='ray'>
-          <ray>
-            <scan>
-              <horizontal>
-                <samples>1</samples>
-                <resolution>1</resolution>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </horizontal>
-              <vertical>
-                <samples>1</samples>
-                <min_angle>0</min_angle>
-                <max_angle>0</max_angle>
-              </vertical>
-            </scan>
-            <range>
-              <min>0.2</min>
-              <max>5</max>
-              <resolution>0.1</resolution>
-            </range>
-          </ray>
-          <plugin name='front_right_middle_sonar_sensor' filename='libgazebo_ros_range.so'>
-            <topicName>/prius/front_sonar/right_middle_range</topicName>
-            <frameName>front_right_middle_sonar_link</frameName>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <always_on>0</always_on>
-          <update_rate>5</update_rate>
-          <visualize>0</visualize>
-          <pose>-0.24 -2.3 0.5 0 0 -1.5707</pose>
-        </sensor>
-        <sensor name='left_camera_sensor' type='camera'>
-          <update_rate>30</update_rate>
-          <camera name='left_camera'>
-            <horizontal_fov>1.39626</horizontal_fov>
-            <image>
-              <width>800</width>
-              <height>800</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.02</near>
-              <far>300</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <plugin name='left_camera_controller' filename='libgazebo_ros_camera.so'>
-            <alwaysOn>0</alwaysOn>
-            <updateRate>0.0</updateRate>
-            <cameraName>/prius/left_camera</cameraName>
-            <imageTopicName>image_raw</imageTopicName>
-            <cameraInfoTopicName>/prius/left_camera/camera_info</cameraInfoTopicName>
-            <frameName>left_camera_link_optical</frameName>
-            <hackBaseline>0.07</hackBaseline>
-            <distortionK1>0.0</distortionK1>
-            <distortionK2>0.0</distortionK2>
-            <distortionK3>0.0</distortionK3>
-            <distortionT1>0.0</distortionT1>
-            <distortionT2>0.0</distortionT2>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <pose>1 -0.7 1 0 0.05 1</pose>
-        </sensor>
-        <sensor name='right_camera_sensor' type='camera'>
-          <update_rate>30</update_rate>
-          <camera name='right_camera'>
-            <horizontal_fov>1.39626</horizontal_fov>
-            <image>
-              <width>800</width>
-              <height>800</height>
-              <format>R8G8B8</format>
-            </image>
-            <clip>
-              <near>0.02</near>
-              <far>300</far>
-            </clip>
-            <noise>
-              <type>gaussian</type>
-              <mean>0</mean>
-              <stddev>0.007</stddev>
-            </noise>
-          </camera>
-          <plugin name='right_camera_controller' filename='libgazebo_ros_camera.so'>
-            <alwaysOn>0</alwaysOn>
-            <updateRate>0.0</updateRate>
-            <cameraName>/prius/right_camera</cameraName>
-            <imageTopicName>image_raw</imageTopicName>
-            <cameraInfoTopicName>/prius/right_camera/camera_info</cameraInfoTopicName>
-            <frameName>right_camera_link_optical</frameName>
-            <hackBaseline>0.07</hackBaseline>
-            <distortionK1>0.0</distortionK1>
-            <distortionK2>0.0</distortionK2>
-            <distortionK3>0.0</distortionK3>
-            <distortionT1>0.0</distortionT1>
-            <distortionT2>0.0</distortionT2>
-            <robotNamespace>/</robotNamespace>
-          </plugin>
-          <pose>-1 -0.7 1 0 0.05 2.1416</pose>
-        </sensor>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='front_left_steer_joint' type='revolute'>
-        <pose relative_to='chassis'>0.767 -1.41 0.3 0 -0 0</pose>
-        <parent>chassis</parent>
-        <child>fl_axle</child>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <limit>
-            <effort>1e+07</effort>
-            <velocity>1e+06</velocity>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='fl_axle'>
-        <pose relative_to='front_left_steer_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>1</mass>
-          <inertia>
-            <ixx>0.004</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.004</iyy>
-            <iyz>0</iyz>
-            <izz>0.004</izz>
-          </inertia>
-        </inertial>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='front_left_wheel_joint' type='revolute'>
-        <pose relative_to='fl_axle'>0 0 0 0 -0 0</pose>
-        <parent>fl_axle</parent>
-        <child>front_left_wheel</child>
-        <axis>
-          <xyz>1 0 0</xyz>
-          <limit>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='front_left_wheel'>
-        <pose relative_to='front_left_wheel_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>11</mass>
-          <inertia>
-            <ixx>0.586312</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.335529</iyy>
-            <iyz>0</iyz>
-            <izz>0.335529</izz>
-          </inertia>
-        </inertial>
-        <collision name='front_left_wheel_collision_collision'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.31265</radius>
-            </sphere>
-          </geometry>
-          <surface>
-            <contact>
-              <ode>
-                <kp>1e+08</kp>
-                <min_depth>0.005</min_depth>
-              </ode>
-            </contact>
-            <friction>
-              <ode>
-                <mu>0.9</mu>
-                <mu2>0.9</mu2>
-              </ode>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <bounce/>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='front_left_wheel_visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>0.01 0.01 0.01</scale>
-              <uri>/home/ubuntu/ros_ws/src/prius_description/meshes/wheel.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='front_right_steer_joint' type='revolute'>
-        <pose relative_to='chassis'>-0.767 -1.41 0.3 0 -0 0</pose>
-        <parent>chassis</parent>
-        <child>fr_axle</child>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <limit>
-            <effort>1e+07</effort>
-            <velocity>1e+06</velocity>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='fr_axle'>
-        <pose relative_to='front_right_steer_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>1</mass>
-          <inertia>
-            <ixx>0.004</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.004</iyy>
-            <iyz>0</iyz>
-            <izz>0.004</izz>
-          </inertia>
-        </inertial>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='front_right_wheel_joint' type='revolute'>
-        <pose relative_to='fr_axle'>0 0 0 0 -0 0</pose>
-        <parent>fr_axle</parent>
-        <child>front_right_wheel</child>
-        <axis>
-          <xyz>1 0 0</xyz>
-          <limit>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='front_right_wheel'>
-        <pose relative_to='front_right_wheel_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>11</mass>
-          <inertia>
-            <ixx>0.586312</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.335529</iyy>
-            <iyz>0</iyz>
-            <izz>0.335529</izz>
-          </inertia>
-        </inertial>
-        <collision name='front_right_wheel_collision_collision'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.31265</radius>
-            </sphere>
-          </geometry>
-          <surface>
-            <contact>
-              <ode>
-                <kp>1e+08</kp>
-                <min_depth>0.005</min_depth>
-              </ode>
-            </contact>
-            <friction>
-              <ode>
-                <mu>0.9</mu>
-                <mu2>0.9</mu2>
-              </ode>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <bounce/>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='front_right_wheel_visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>0.01 0.01 0.01</scale>
-              <uri>/home/ubuntu/ros_ws/src/prius_description/meshes/wheel.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='rear_left_wheel_joint' type='revolute'>
-        <pose relative_to='chassis'>0.793 1.45 0.3 0 -0 0</pose>
-        <parent>chassis</parent>
-        <child>rear_left_wheel</child>
-        <axis>
-          <xyz>1 0 0</xyz>
-          <limit>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='rear_left_wheel'>
-        <pose relative_to='rear_left_wheel_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>11</mass>
-          <inertia>
-            <ixx>0.586312</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.335529</iyy>
-            <iyz>0</iyz>
-            <izz>0.335529</izz>
-          </inertia>
-        </inertial>
-        <collision name='rear_left_wheel_collision_collision'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.31265</radius>
-            </sphere>
-          </geometry>
-          <surface>
-            <contact>
-              <ode>
-                <kp>1e+08</kp>
-                <min_depth>0.005</min_depth>
-              </ode>
-            </contact>
-            <friction>
-              <ode>
-                <mu>0.9</mu>
-                <mu2>0.9</mu2>
-              </ode>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <bounce/>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='rear_left_wheel_visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>0.01 0.01 0.01</scale>
-              <uri>/home/ubuntu/ros_ws/src/prius_description/meshes/wheel.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='rear_right_wheel_joint' type='revolute'>
-        <pose relative_to='chassis'>-0.793 1.45 0.3 0 -0 0</pose>
-        <parent>chassis</parent>
-        <child>rear_right_wheel</child>
-        <axis>
-          <xyz>1 0 0</xyz>
-          <limit>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='rear_right_wheel'>
-        <pose relative_to='rear_right_wheel_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>11</mass>
-          <inertia>
-            <ixx>0.586312</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.335529</iyy>
-            <iyz>0</iyz>
-            <izz>0.335529</izz>
-          </inertia>
-        </inertial>
-        <collision name='rear_right_wheel_collision_collision'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <sphere>
-              <radius>0.31265</radius>
-            </sphere>
-          </geometry>
-          <surface>
-            <contact>
-              <ode>
-                <kp>1e+08</kp>
-                <min_depth>0.005</min_depth>
-              </ode>
-            </contact>
-            <friction>
-              <ode>
-                <mu>0.9</mu>
-                <mu2>0.9</mu2>
-              </ode>
-              <torsional>
-                <ode/>
-              </torsional>
-            </friction>
-            <bounce/>
-          </surface>
-          <max_contacts>10</max_contacts>
-        </collision>
-        <visual name='rear_right_wheel_visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>0.01 0.01 0.01</scale>
-              <uri>/home/ubuntu/ros_ws/src/prius_description/meshes/wheel.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <joint name='steering_joint' type='revolute'>
-        <pose relative_to='chassis'>0.357734 -0.627868 0.988243 -1.3021 0 0</pose>
-        <parent>chassis</parent>
-        <child>steering_wheel</child>
-        <axis>
-          <xyz>0 0 1</xyz>
-          <limit>
-            <effort>1e+07</effort>
-            <velocity>1e+06</velocity>
-            <lower>-1e+16</lower>
-            <upper>1e+16</upper>
-          </limit>
-          <dynamics>
-            <spring_reference>0</spring_reference>
-            <spring_stiffness>0</spring_stiffness>
-          </dynamics>
-        </axis>
-      </joint>
-      <link name='steering_wheel'>
-        <pose relative_to='steering_joint'>0 0 0 0 -0 0</pose>
-        <inertial>
-          <pose>0 0 0 0 -0 0</pose>
-          <mass>1</mass>
-          <inertia>
-            <ixx>0.145833</ixx>
-            <ixy>0</ixy>
-            <ixz>0</ixz>
-            <iyy>0.145833</iyy>
-            <iyz>0</iyz>
-            <izz>0.125</izz>
-          </inertia>
-        </inertial>
-        <visual name='steering_wheel_visual'>
-          <pose>0 0 0 1.3021 -0 0</pose>
-          <geometry>
-            <mesh>
-              <scale>0.01 0.01 0.01</scale>
-              <uri>/home/ubuntu/ros_ws/src/prius_description/meshes/steering_wheel.obj</uri>
-            </mesh>
-          </geometry>
-        </visual>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <plugin name='pruis_hybrid_drive' filename='libPriusHybridPlugin.so'>
-        <chassis>chassis</chassis>
-        <front_left_wheel>front_left_wheel_joint</front_left_wheel>
-        <front_right_wheel>front_right_wheel_joint</front_right_wheel>
-        <front_left_wheel_steering>front_left_steer_joint</front_left_wheel_steering>
-        <front_right_wheel_steering>front_right_steer_joint</front_right_wheel_steering>
-        <back_left_wheel>rear_left_wheel_joint</back_left_wheel>
-        <back_right_wheel>rear_right_wheel_joint</back_right_wheel>
-        <steering_wheel>steering_joint</steering_wheel>
-        <chassis_aero_force_gain>0.63045</chassis_aero_force_gain>
-        <front_torque>859.4004393000001</front_torque>
-        <back_torque>0</back_torque>
-        <front_brake_torque>1031.28052716</front_brake_torque>
-        <back_brake_torque>687.5203514400001</back_brake_torque>
-        <max_speed>37.998337013956565</max_speed>
-        <min_gas_flow>8.981854013171626e-05</min_gas_flow>
-        <gas_efficiency>0.371</gas_efficiency>
-        <battery_charge_watt_hours>291</battery_charge_watt_hours>
-        <battery_discharge_watt_hours>214</battery_discharge_watt_hours>
-        <max_steer>0.6458</max_steer>
-        <flwheel_steering_p_gain>1e4</flwheel_steering_p_gain>
-        <frwheel_steering_p_gain>1e4</frwheel_steering_p_gain>
-        <flwheel_steering_i_gain>0</flwheel_steering_i_gain>
-        <frwheel_steering_i_gain>0</frwheel_steering_i_gain>
-        <flwheel_steering_d_gain>3e2</flwheel_steering_d_gain>
-        <frwheel_steering_d_gain>3e2</frwheel_steering_d_gain>
-        <robotNamespace>/</robotNamespace>
-      </plugin>
-      <plugin name='joint_state_publisher' filename='libgazebo_ros_joint_state_publisher.so'>
-        <jointName>rear_right_wheel_joint, rear_left_wheel_joint, front_right_wheel_joint, front_left_wheel_joint, front_right_steer_joint, front_left_steer_joint, steering_joint</jointName>
-        <updateRate>100.0</updateRate>
-        <alwaysOn>1</alwaysOn>
-        <robotNamespace>/</robotNamespace>
-      </plugin>
-      <static>0</static>
-      <plugin name='p3d' filename='libgazebo_ros_p3d.so'>
-        <bodyName>base_link</bodyName>
-        <topicName>base_pose_ground_truth</topicName>
-        <frameName>map</frameName>
-        <updateRate>100.0</updateRate>
-        <robotNamespace>/</robotNamespace>
-      </plugin>
-      <pose>-0.328607 -1.9609 0.006902 0 -0 0</pose>
-    </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
         <track_visual>
@@ -1335,69 +148,69 @@
           <xyz>-7 -32 13</xyz>
           <inherit_yaw>1</inherit_yaw>
         </track_visual>
-        <pose>-27.1643 -116.306 300.604 -0 1.0618 1.60616</pose>
+        <pose>31.0823 -27.9156 16.3972 0 0.377802 2.45041</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
     </gui>
     <state world_name='default'>
-      <sim_time>99 635000000</sim_time>
-      <real_time>55 376200359</real_time>
-      <wall_time>1675420613 590509829</wall_time>
-      <iterations>41157</iterations>
+      <sim_time>0</sim_time>
+      <real_time>65 807738118</real_time>
+      <wall_time>1675503935 552825724</wall_time>
+      <iterations>51539</iterations>
       <model name='Construction Cone'>
-        <pose>13.8468 43.4448 -0 1e-06 -0 0</pose>
+        <pose>13.8468 43.4448 -0 0 -1e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>13.8468 43.4448 -0 1e-06 -0 0</pose>
+          <pose>13.8468 43.4448 -0 0 -1e-06 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 -9.79983 4.3e-05 2.9e-05 0</acceleration>
-          <wrench>-0 -0 -9.79983 0 -0 0</wrench>
+          <acceleration>-0 0 0.008512 2.58585 -1.13682 -3.14159</acceleration>
+          <wrench>-0 0 0.008512 0 -0 0</wrench>
         </link>
       </model>
       <model name='Construction Cone_clone'>
-        <pose>18.8459 79.8518 -0 0 -0 0</pose>
+        <pose>18.8459 79.8518 -0 0 -1e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>18.8459 79.8518 -0 0 -0 0</pose>
+          <pose>18.8459 79.8518 -0 0 -1e-06 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 -0.008512 -2.58585 1.13682 3.14159</acceleration>
-          <wrench>0 -0 -0.008512 0 -0 0</wrench>
+          <acceleration>-0 0 0.008512 2.58585 -1.13682 -3.14159</acceleration>
+          <wrench>-0 0 0.008512 0 -0 0</wrench>
         </link>
       </model>
       <model name='Construction Cone_clone_0'>
-        <pose>22.0308 112.916 -0 0 -0 0</pose>
+        <pose>22.0308 112.916 -0 0 -1e-06 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>22.0308 112.916 -0 0 -0 0</pose>
+          <pose>22.0308 112.916 -0 0 -1e-06 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 -0 -0.008512 -2.58585 1.13682 3.14159</acceleration>
-          <wrench>0 -0 -0.008512 0 -0 0</wrench>
+          <acceleration>-0 0 0.008512 2.58585 -1.13682 -3.14159</acceleration>
+          <wrench>-0 0 0.008512 0 -0 0</wrench>
         </link>
       </model>
       <model name='Construction Cone_clone_1'>
-        <pose>6.66815 14.6175 0 -0 -0 -0</pose>
+        <pose>6.66815 14.6175 -1e-05 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>6.66815 14.6175 0 -0 -0 -0</pose>
+          <pose>6.66815 14.6175 -1e-05 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0 -0 19.2061 1.64787 -0.121629 0</acceleration>
-          <wrench>-0 -0 19.2061 0 -0 0</wrench>
+          <acceleration>0 0 -9.8 0 -0 0</acceleration>
+          <wrench>0 0 -9.8 0 -0 0</wrench>
         </link>
       </model>
       <model name='adding_1_+_2'>
-        <pose>-29.8502 172.822 0.001412 -1e-06 -0 0.146415</pose>
+        <pose>-29.8502 172.822 0.001342 1e-06 -0 0.146415</pose>
         <scale>1 1 1</scale>
         <model name='adding'>
-          <pose>18.3493 137.857 0.00145 -1e-06 -0 0.146415</pose>
+          <pose>18.3493 137.857 0.001313 1e-06 -0 0.146415</pose>
           <scale>1 1 1</scale>
           <model name='Dumpster'>
-            <pose>-13.7039 212.626 0.001368 -1e-06 -0 0.146415</pose>
+            <pose>-13.7039 212.626 0.001377 1e-06 -0 0.146415</pose>
             <scale>1 1 1</scale>
             <link name='link'>
-              <pose>-13.7039 212.626 0.001368 -1e-06 -0 0.146415</pose>
+              <pose>-13.7039 212.626 0.001377 1e-06 -0 0.146415</pose>
               <velocity>0 0 0 0 -0 0</velocity>
-              <acceleration>0 0 -9.8 0 -0 0</acceleration>
+              <acceleration>0 0 -9.8 -0 -0 -0</acceleration>
               <wrench>0 0 -9.8 0 -0 0</wrench>
             </link>
           </model>
@@ -1405,20 +218,20 @@
             <pose>-16.2074 215.018 0 0 -0 0</pose>
             <scale>1 1 1</scale>
             <link name='link'>
-              <pose>-16.2074 215.018 0.001373 0 5e-06 0</pose>
+              <pose>-16.2074 215.018 0.001373 0 -5e-06 0</pose>
               <velocity>0 0 0 0 -0 0</velocity>
-              <acceleration>0 0 -9.8 0 -0 0</acceleration>
-              <wrench>0 0 -9.8 0 -0 0</wrench>
+              <acceleration>-0.006812 1e-06 -4.85257 -0.000673 1.3382 -0</acceleration>
+              <wrench>-0.006812 1e-06 -4.85257 0 -0 0</wrench>
             </link>
           </model>
           <model name='Dumpster_clone_0'>
             <pose>-16.4738 213.074 0 0 -0 0</pose>
             <scale>1 1 1</scale>
             <link name='link'>
-              <pose>-16.5762 212.727 0.001377 0 -0 0.031298</pose>
+              <pose>-16.5762 212.727 0.001376 2e-06 -0 0.031298</pose>
               <velocity>0 0 0 0 -0 0</velocity>
-              <acceleration>0.006797 0.000217 -4.93018 -0.154551 -1.3585 -8e-06</acceleration>
-              <wrench>0.006797 0.000217 -4.93018 0 -0 0</wrench>
+              <acceleration>0 0 -9.8 0 -0 0</acceleration>
+              <wrench>0 0 -9.8 0 -0 0</wrench>
             </link>
           </model>
           <model name='House 3'>
@@ -2088,15 +901,15 @@
         </model>
       </model>
       <model name='adding_3'>
-        <pose>-301.695 211.01 0.011806 -1.1e-05 -1e-06 -0</pose>
+        <pose>-301.695 211.01 0.011768 -9e-06 2e-06 0</pose>
         <scale>1 1 1</scale>
         <model name='Mailbox'>
-          <pose>-283.201 259.174 0 -1.1e-05 -1e-06 -0</pose>
+          <pose>-283.201 259.174 -9e-06 -9e-06 2e-06 0</pose>
           <scale>1 1 1</scale>
           <link name='link'>
-            <pose>-283.201 259.174 0 -1.1e-05 -1e-06 -0</pose>
+            <pose>-283.201 259.174 -9e-06 -9e-06 2e-06 0</pose>
             <velocity>0 0 0 0 -0 0</velocity>
-            <acceleration>0 0 -9.8 0 -0 0</acceleration>
+            <acceleration>0 0 -9.8 -0 -0 -0</acceleration>
             <wrench>0 0 -9.8 0 -0 0</wrench>
           </link>
         </model>
@@ -2204,50 +1017,50 @@
           <pose>-282.153 259.655 0.07 0 -0 0</pose>
           <scale>1 1 1</scale>
           <link name='pallet_base'>
-            <pose>-282.562 259.599 -0.005 0 -0 0.054175</pose>
+            <pose>-282.562 259.599 -0.005003 2e-06 -4e-06 0.054139</pose>
             <velocity>0 0 0 0 -0 0</velocity>
-            <acceleration>-0.753415 -0.303075 5.18954 -2.94687 0.381495 0.187866</acceleration>
-            <wrench>-0.753415 -0.303075 5.18954 0 -0 0</wrench>
+            <acceleration>0 0 -3.40301 -0.375389 0.616389 -3.14159</acceleration>
+            <wrench>0 0 -3.40301 0 -0 0</wrench>
           </link>
         </model>
         <model name='pallet_clone'>
           <pose>-282.163 259.93 0.07 0 -0 0</pose>
           <scale>1 1 1</scale>
           <link name='pallet_base'>
-            <pose>-283.005 259.807 0.135014 -1e-06 2.2e-05 0.091434</pose>
+            <pose>-283.005 259.807 0.134999 -0.000168 3e-06 0.091407</pose>
             <velocity>0 0 0 0 -0 0</velocity>
-            <acceleration>0.753415 0.303075 1.55141 1.19593 -0.556667 0.103244</acceleration>
-            <wrench>0.753415 0.303075 1.55141 0 -0 0</wrench>
+            <acceleration>0 0 -9.8 0 -0 0</acceleration>
+            <wrench>0 0 -9.8 0 -0 0</wrench>
           </link>
         </model>
         <model name='pallet_clone_0'>
           <pose>-282.114 260.484 0.07 0 -0 0</pose>
           <scale>1 1 1</scale>
           <link name='pallet_base'>
-            <pose>-281.829 260.459 0.067543 -0.163069 0.012364 0.148022</pose>
+            <pose>-281.829 260.46 0.067425 -0.162752 0.012378 0.146958</pose>
             <velocity>0 0 0 0 -0 0</velocity>
-            <acceleration>-0.037823 0.697004 6.0589 0.505975 0.876097 2.74205</acceleration>
-            <wrench>-0.037823 0.697004 6.0589 0 -0 0</wrench>
+            <acceleration>-0.05261 0.969915 7.20483 -0.523933 -0.316512 2.58531</acceleration>
+            <wrench>-0.05261 0.969915 7.20483 0 -0 0</wrench>
           </link>
         </model>
         <model name='pallet_clone_1'>
           <pose>-281.824 258.65 0.07 0 -0 0</pose>
           <scale>1 1 1</scale>
           <link name='pallet_base'>
-            <pose>-282.193 258.576 -0.005002 4e-06 -0 0.073661</pose>
+            <pose>-282.193 258.576 -0.005001 3e-06 -0 0.073661</pose>
             <velocity>0 0 0 0 -0 0</velocity>
-            <acceleration>-0.001243 0.016851 -1.35171 -2.91312 0.248693 0</acceleration>
-            <wrench>-0.001243 0.016851 -1.35171 0 -0 0</wrench>
+            <acceleration>-0.000981 0.013291 -3.13591 2.65834 0.196171 0</acceleration>
+            <wrench>-0.000981 0.013291 -3.13591 0 -0 0</wrench>
           </link>
         </model>
         <model name='pallet_clone_2'>
           <pose>-281.776 259.184 0.07 0 -0 0</pose>
           <scale>1 1 1</scale>
           <link name='pallet_base'>
-            <pose>-280.956 259.131 -0.005001 -3e-06 0 -0.030976</pose>
+            <pose>-280.956 259.131 -0.005009 0 0 -0.030976</pose>
             <velocity>0 0 0 0 -0 0</velocity>
-            <acceleration>-0.000413 -0.013321 -3.13591 -2.66429 0.082555 0</acceleration>
-            <wrench>-0.000413 -0.013321 -3.13591 0 -0 0</wrench>
+            <acceleration>0 0 -9.8 0 -0 0</acceleration>
+            <wrench>0 0 -9.8 0 -0 0</wrench>
           </link>
         </model>
         <model name='police_station'>
@@ -3641,64 +2454,6 @@
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='prius'>
-        <pose>2.25278 -3.44297 0.006902 0 0.000237 1.09794</pose>
-        <scale>1 1 1</scale>
-        <link name='base_link'>
-          <pose>2.25278 -3.44297 0.006902 0 0.000237 1.09794</pose>
-          <velocity>0.001752 -0.005326 -0.001889 0.010368 -0.005306 0.04567</velocity>
-          <acceleration>1.30055 0.673021 -0.000649 -0.061158 0.024297 1.39352</acceleration>
-          <wrench>1.30055 0.673021 -0.000649 0 -0 0</wrench>
-        </link>
-        <link name='chassis'>
-          <pose>2.91319 -2.15211 0.007484 4.5e-05 -0 2.66791</pose>
-          <velocity>0.001071 -0.003025 -0.015345 0.004768 -0.002445 -0.001542</velocity>
-          <acceleration>0.023576 -0.088119 -0.005011 -0.053984 0.031014 0.069017</acceleration>
-          <wrench>32.4169 -121.164 -6.89041 0 -0 0</wrench>
-        </link>
-        <link name='fl_axle'>
-          <pose>2.87384 -0.547479 0.307607 0.001618 8.3e-05 2.66716</pose>
-          <velocity>0.003912 -0.006545 -0.029499 -0.074216 -0.061412 -1.56669</velocity>
-          <acceleration>1.9726 -4.69011 0.032024 1.27767 -0.968212 2.00174</acceleration>
-          <wrench>1.9726 -4.69011 0.032024 0 -0 0</wrench>
-        </link>
-        <link name='fr_axle'>
-          <pose>4.23893 -1.24724 0.307607 0.001474 -1.4e-05 2.66866</pose>
-          <velocity>0.000881 -0.004282 -0.029515 0.064301 0.051719 1.44827</velocity>
-          <acceleration>-1.89247 4.1178 0.02286 0.816407 -0.978157 0.070798</acceleration>
-          <wrench>-1.89247 4.1178 0.02286 0 -0 0</wrench>
-        </link>
-        <link name='front_left_wheel'>
-          <pose>2.87384 -0.547479 0.307566 2.265 6.4e-05 2.66716</pose>
-          <velocity>0.003921 -0.006691 -0.024664 0.021605 -0.089559 -1.56673</velocity>
-          <acceleration>2.04869 -4.86897 0.006515 -0.419421 -0.01189 1.91398</acceleration>
-          <wrench>22.5356 -53.5587 0.071663 0 -0 0</wrench>
-        </link>
-        <link name='front_right_wheel'>
-          <pose>4.23893 -1.24724 0.307565 2.86686 -1.1e-05 2.66866</pose>
-          <velocity>0.000811 -0.004263 -0.024653 0.12645 0.00249 1.44831</velocity>
-          <acceleration>-1.97416 4.2682 0.004097 -0.960925 -0.110196 -3.00024</acceleration>
-          <wrench>-21.7158 46.9502 0.045062 0 -0 0</wrench>
-        </link>
-        <link name='rear_left_wheel'>
-          <pose>1.54607 -3.08069 0.307555 -0.951683 1.4e-05 2.66791</pose>
-          <velocity>-0.001485 -0.003045 -0.023809 0.009554 -0.004574 -0.001542</velocity>
-          <acceleration>0.075996 -0.12139 0.042115 0.481539 0.338842 0.067655</acceleration>
-          <wrench>0.835955 -1.33529 0.463265 0 -0 0</wrench>
-        </link>
-        <link name='rear_right_wheel'>
-          <pose>2.95744 -3.80418 0.307555 -0.915455 -7e-06 2.66791</pose>
-          <velocity>-0.002217 -0.005583 -0.023775 0.00303 -0.007053 -0.001543</velocity>
-          <acceleration>0.399464 -1.56585 0.054136 -2.66867 -1.46324 -3.07383</acceleration>
-          <wrench>4.39411 -17.2244 0.595498 0 -0 0</wrench>
-        </link>
-        <link name='steering_wheel'>
-          <pose>2.88128 -1.43015 0.995697 -1.30205 0 2.66791</pose>
-          <velocity>-0.000246 -0.007714 -0.011897 0.004856 -0.00242 -0.00156</velocity>
-          <acceleration>-0.020624 -0.062615 -0.039448 0.004723 0.113618 0.02674</acceleration>
-          <wrench>-0.020624 -0.062615 -0.039448 0 -0 0</wrench>
         </link>
       </model>
       <model name='school_0'>
@@ -17433,6 +16188,11 @@
         <quadratic>0.001</quadratic>
       </attenuation>
       <cast_shadows>1</cast_shadows>
+      <spot>
+        <inner_angle>0</inner_angle>
+        <outer_angle>0</outer_angle>
+        <falloff>0</falloff>
+      </spot>
     </light>
   </world>
 </sdf>

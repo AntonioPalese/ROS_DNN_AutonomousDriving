@@ -264,7 +264,7 @@
 
 
   <!-- Sensor links and fixed joints -->
-  <link name="center_laser_link">
+  <!-- <link name="center_laser_link">
     <inertial>
       <mass value="1"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
@@ -298,7 +298,7 @@
     <parent link="chassis"/>
     <child link="front_right_laser_link"/>
     <origin xyz="-1 -2.3 0.5" rpy="0 0.05 3.14"/>
-  </joint>
+  </joint> -->
 
   <gazebo reference="base_link_connection">
     <disableFixedJointLumping>true</disableFixedJointLumping>
@@ -327,7 +327,7 @@
     <child link="front_camera_link_optical"/>
   </joint>
 
-  <link name="back_camera_link">
+  <!-- <link name="back_camera_link">
     <inertial>
       <mass value="1"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
@@ -490,7 +490,7 @@
     <parent link="chassis"/>
     <child link="front_right_middle_sonar_link"/>
     <origin xyz="-0.24 -2.3 0.5" rpy="0 0 -1.5707"/>
-  </joint>
+  </joint> -->
 
   <gazebo>
     <plugin name="pruis_hybrid_drive" filename="libPriusHybridPlugin.so">
@@ -541,7 +541,7 @@
     </plugin>
   </gazebo>
 
-  <gazebo reference="center_laser_link">
+  <!-- <gazebo reference="center_laser_link">
     <sensor name='center_laser_sensor' type='ray'>
       <ray>
         <scan>
@@ -635,7 +635,7 @@
       <update_rate>30</update_rate>
       <visualize>0</visualize>
     </sensor>
-  </gazebo>
+  </gazebo> -->
 
   <gazebo reference="front_camera_link">
     <sensor type="camera" name="front_camera_sensor">
@@ -675,7 +675,7 @@
     </sensor>
   </gazebo>
 
-  <gazebo reference="back_camera_link">
+  <!-- <gazebo reference="back_camera_link">
     <sensor type="camera" name="back_camera_sensor">
       <update_rate>30.0</update_rate>
       <camera name="back_camera">
@@ -1041,5 +1041,5 @@
       <update_rate>5</update_rate>
       <visualize>0</visualize>
     </sensor>
-  </gazebo>
-</robot>
+  </gazebo>-->
+</robot> 

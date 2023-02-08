@@ -25,7 +25,7 @@ class camera_checking:
         self.seq = 1   
         self.cfg = get_cfg("/home/ubuntu/ros_ws/src/lane_detector/configurations/configuration.yaml")
         self.model = parsingNet(self.cfg).cuda(self.cfg.model.device)
-        self.model.load_state_dict(torch.load("/home/ubuntu/ros_ws/src/lane_detector/state_dicts/ep333_best.pth", map_location='cpu')['model'])  
+        self.model.load_state_dict(torch.load("/home/ubuntu/ros_ws/src/lane_detector/state_dicts/ep245_best.pth", map_location='cpu')['model'])  
         self.model.eval()
         
 

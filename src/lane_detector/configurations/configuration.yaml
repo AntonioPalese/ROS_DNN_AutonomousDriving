@@ -43,7 +43,7 @@ validate:
   validate_work_dir : ""
 
 save:
-  weights_path : "state_dicts/ep333_best.pth"
+  weights_path : "state_dicts/ep245_best.pth"
   overwrite : False
   keep_weights : "" # dir
   resume_epoch : 0

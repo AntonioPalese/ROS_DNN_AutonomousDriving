@@ -9,7 +9,7 @@
 
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find car_demo)/worlds/road_env.world"/>
+    <arg name="world_name" value="$(find car_demo)/worlds/road_env_no_prius.world"/>
     <arg name="verbose" value="false"/>
   </include>
 
@@ -33,7 +33,7 @@
 
   <!-- <node pkg="lane_detector" type="detector.py" name="detector.py" required="true"/> -->
 
-  <!-- <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -x 2.250881 -y 0.597858 -z 0.006901 -roll 0.000000 -pitch 0.000236 -yaw 1.086039 -model prius"/> -->
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -param robot_description -x 0.0 -y 0.0 -z 0.0 -model prius" respawn="false" output="screen"/>
 
   <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" /> -->
 </launch>

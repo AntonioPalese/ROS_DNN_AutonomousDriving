@@ -15,6 +15,7 @@ from torch.utils.tensorboard import SummaryWriter
 from gazebo_msgs.msg import LinkStates 
 
 MAX_VELOCITY = 15
+FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 class lane_control:
     def __init__(self):
@@ -26,11 +27,12 @@ class lane_control:
         self.num_val_y = (315, 378, 441, 504, 567)  
         self.y_weights = [1.0, 1.0, 1.0]
         self.ref_line = ([int(1640/2) for _ in range(int(590/2) + 20, 590, 5)], [y for y in range(int(590/2) + 20, 590, 5)])  
-        self.pid = PID(Kp=0.8, Ki=0.0001, Kd=0.05, setpoint=0, sample_time=0.001, output_limits=(-1, 1))
+        self.pid = PID(Kp=0.4, Ki=0, Kd=0.1, setpoint=0, sample_time=0.001, output_limits=(-0.6458, 0.6458))
         self.acceleration = 0.10
         self.avg_speed = 15.0 # m/s
         self.brake = 0
         self.step_brake = 0.09
+        self.speed = 0
         self.time = rospy.get_rostime().to_sec()
         self.last_angle = 0.0
         self.last_controller = 0
@@ -66,7 +68,7 @@ class lane_control:
 
         self.brake = max(0, min(self.brake, 1))
 
-    def display(self,frame, lines, color=((255,0,0))):
+    def display(self,frame, lines, color=(255,0,0)):
     
         for i,lane in enumerate(lines):
             [cv2.circle(frame, center=(int(p.x), int(p.y)), radius=1, color=color, thickness=2) for p in lane]
@@ -131,8 +133,9 @@ class lane_control:
         self.time = rospy.get_rostime().to_sec()
 
         controller = self.pid(angle)
+        print("controlled angle : ", controller)
 
-        if abs(ang_v) > 0.20:
+        if abs(ang_v) > 0.16:
             self.avg_speed -= (self.speed / 10)
         else:
             self.avg_speed += 1.0
@@ -154,9 +157,9 @@ class lane_control:
         self.seq += 1
 
         if A - B > 0:          
-            command.steer = -controller 
+            command.steer = -controller / 0.6458
         elif A - B < 0:          
-            command.steer = controller 
+            command.steer = controller / 0.6458
 
         print("value : ", value)
         print("steer : ",command.steer)
@@ -182,7 +185,11 @@ class lane_control:
         # [print(f"{line} \n -----------") for line in [line1, line2, line3, line4]]
         frame = self.bridge.imgmsg_to_cv2(data)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB) 
-        frame = self.display(frame, [line1, line2, line3, line4])
+        frame = self.display(frame, [line1], color=(255, 0, 0))
+        frame = self.display(frame, [line2], color=(0, 255, 0))
+        frame = self.display(frame, [line3], color=(0, 0, 255))
+        frame = self.display(frame, [line4], color=(255, 255, 100))
+
 
         #frame,_ = self.compute_points(line1, frame)
         frame,A = self.compute_points(line2, frame)
@@ -198,7 +205,7 @@ class lane_control:
             B = [b*w for b,w in zip(B, self.y_weights)]
             # print("B  :", B)
 
-        
+        command = None
         if A and B:
             command = self.control(sum(A) / len(self.num_val_y),sum(B) / len(self.num_val_y))
             self.lane_publisher.publish(command)
@@ -208,6 +215,13 @@ class lane_control:
         elif B:
             command = self.control(0, sum(B) / len(self.num_val_y))
             self.lane_publisher.publish(command)
+        if command:
+            try:        
+                frame = cv2.putText(frame,"speed : %1.3f m/s" %(self.speed),(1300,30), FONT, 1,(0,0,0),1,cv2.LINE_AA)
+                frame = cv2.putText(frame,"steering : %1.3f rad" %(command.steer),(1300,60), FONT, 1,(0,0,0),1,cv2.LINE_AA)
+                frame = cv2.putText(frame,"brake : %1.3f" %(command.brake),(1300,90), FONT, 1,(0,0,0),1,cv2.LINE_AA)
+            except Exception as e:
+                print(e)
 
         cv2.imshow("out", frame)
         cv2.waitKey(1)
