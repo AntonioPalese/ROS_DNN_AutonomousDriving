@@ -53,6 +53,6 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/lane_detector" TYPE PROGRAM FILES "/home/ubuntu/ros_ws/build/lane_detector/catkin_generated/installspace/detector.py")
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/lane_detector" TYPE PROGRAM FILES "/home/ubuntu/ros_ws/build/lane_detector/catkin_generated/installspace/detector")
 endif()
 
